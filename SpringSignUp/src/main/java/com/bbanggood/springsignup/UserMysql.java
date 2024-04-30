@@ -6,9 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Getter
@@ -30,13 +28,9 @@ public class UserMysql {
     private String userPhone;
 
     @Column(name = "USER_BIRTH", nullable = false)
-    private LocalDate userBirth;
+//    private LocalDate userBirth;
+    private String userBirth;
 
     @Column(name = "USER_SEX", nullable = false)
-    private Character userSex;
-
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "USER_CREATED_AT", nullable = false)
-    private Instant userCreatedAt;
-
+    private String userSex;
 }
