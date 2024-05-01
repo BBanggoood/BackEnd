@@ -24,11 +24,15 @@ public class CustomUserDetailsService implements UserDetailsService {
         //DB에서 조회
         UserEntity userData = userRepository.findByUsername(username);
 
+        System.out.println("---커스텀유저디테일---");
+        System.out.println(userData);
+
         if (userData != null) {
 
             //UserDetails에 담아서 return하면 AutneticationManager가 검증 함
             return new CustomUserDetails(userData);
         }
+        System.out.println("유저 없음");
 
         return null;
     }

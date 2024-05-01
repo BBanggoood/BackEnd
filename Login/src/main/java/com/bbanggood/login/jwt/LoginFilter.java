@@ -26,6 +26,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         this.jwtUtil = jwtUtil;
     }
 
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
@@ -46,6 +47,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         //UserDetailsS
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        System.out.println("성공 메서드");
+        System.out.println(customUserDetails);
 
         String username = customUserDetails.getUsername();
 
