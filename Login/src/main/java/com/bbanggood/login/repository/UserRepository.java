@@ -1,9 +1,9 @@
 package com.bbanggood.login.repository;
 
 import com.bbanggood.login.entity.UserEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+public interface UserRepository extends MongoRepository<UserEntity, Integer> {
 
     Boolean existsByUsername(String username);
 
