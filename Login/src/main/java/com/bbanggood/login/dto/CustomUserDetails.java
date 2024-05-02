@@ -1,6 +1,7 @@
 package com.bbanggood.login.dto;
 
 import com.bbanggood.login.entity.UserEntity;
+import org.bson.internal.BsonUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -26,7 +27,8 @@ public class CustomUserDetails implements UserDetails {
 
             @Override
             public String getAuthority() {
-
+                System.out.println("---커스텀유저디테일---");
+                System.out.println(userEntity);
                 return userEntity.getRole();
             }
         });

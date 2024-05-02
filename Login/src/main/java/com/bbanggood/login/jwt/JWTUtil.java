@@ -1,6 +1,7 @@
 package com.bbanggood.login.jwt;
 
 import io.jsonwebtoken.Jwts;
+import org.bson.internal.BsonUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 
 @Component
 public class JWTUtil {
+
 
     private SecretKey secretKey;
 
@@ -37,7 +39,7 @@ public class JWTUtil {
 
     //토큰 발급
     public String createJwt(String username, String role, Long expiredMs) {
-
+        System.out.println("---JWT유틸---");
         return Jwts.builder()
                 .claim("username", username)
                 .claim("role", role)
