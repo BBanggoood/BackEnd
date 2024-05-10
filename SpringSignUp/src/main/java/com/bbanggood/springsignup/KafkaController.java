@@ -2,22 +2,19 @@ package com.bbanggood.springsignup;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 @RequestMapping(value = "/kafka")
 @Slf4j
 @RequiredArgsConstructor
 public class KafkaController {
-    @Autowired
-    private KafkaProducer producer;
+    private final KafkaProducerService producerService;
 
     @PostMapping
     @ResponseBody
-    public String sendMessage(@RequestParam("name") String name,
-                              @RequestParam("age") int age) {
-        this.producer.sendMessage(name, age);
+    public String sendMessage(@RequestBody ChatMessage chatmessage) {
+        System.out.println("chatmessage = " + chatmessage);
+        producerService.sendMessage(chatmessage);
         return "success";
     }
 }
