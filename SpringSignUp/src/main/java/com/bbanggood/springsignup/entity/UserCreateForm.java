@@ -1,13 +1,9 @@
-package com.bbanggood.springsignup;
+package com.bbanggood.springsignup.entity;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.Instant;
-import java.time.LocalDate;
 
 @Getter
 @Setter

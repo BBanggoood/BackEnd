@@ -1,4 +1,4 @@
-package com.bbanggood.springsignup;
+package com.bbanggood.springsignup.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

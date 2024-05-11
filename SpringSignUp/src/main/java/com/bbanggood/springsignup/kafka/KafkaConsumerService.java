@@ -1,4 +1,4 @@
-package com.bbanggood.springsignup;
+package com.bbanggood.springsignup.kafka;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;

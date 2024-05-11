@@ -1,4 +1,4 @@
-package com.bbanggood.springsignup;
+package com.bbanggood.springsignup.kafka;
 
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
