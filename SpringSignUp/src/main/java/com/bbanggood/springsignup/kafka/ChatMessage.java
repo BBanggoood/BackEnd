@@ -1,4 +1,4 @@
-package com.bbanggood.springsignup;
+package com.bbanggood.springsignup.kafka;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
