@@ -19,6 +19,8 @@ public class UserMysql {
     @Column(name = "USER_PWD", nullable = false)
     private String userPwd;
 
+    private String confirmUserPwd;
+
     @Column(name = "USER_NAME", nullable = false, length = 30)
     private String userName;
 
