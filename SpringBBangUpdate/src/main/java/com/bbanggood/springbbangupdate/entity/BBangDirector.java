@@ -1,8 +1,6 @@
 package com.bbanggood.springbbangupdate.entity;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +10,11 @@ import lombok.Setter;
 @Table(name = "like_director")
 public class BBangDirector {
     @EmbeddedId
-    private BBangDirectorId id;
+    private BBangDirectorId bbangDirectorId;
+
+    @MapsId("setbxId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "SETBX_ID", nullable = false)
+    private UserMysql userMysql;
 
 }

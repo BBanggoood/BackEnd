@@ -2,14 +2,14 @@ package com.bbanggood.springbbangupdate.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
-@Getter
-@Setter
+@Data // getter, setter, requiredArgsContructor, toString, equals, hashCode 메서드 자동 생성
+@NoArgsConstructor // 파라미터 없는 기본 생성자 생성. JPA는 엔터티를 프록시로 사용하기 위해 기본 생성자 꼭 필요
+@AllArgsConstructor // 필드 값을 초기화하는 생성자 자동 사용 가능
 @Embeddable
 public class BBangCastId implements java.io.Serializable {
     private static final long serialVersionUID = -5550428873683906608L;
@@ -18,19 +18,5 @@ public class BBangCastId implements java.io.Serializable {
 
     @Column(name = "VOD_CAST", nullable = false)
     private String vodCast;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        BBangCastId entity = (BBangCastId) o;
-        return Objects.equals(this.vodCast, entity.vodCast) &&
-                Objects.equals(this.setbxId, entity.setbxId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(vodCast, setbxId);
-    }
 
 }
