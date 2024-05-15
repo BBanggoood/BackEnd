@@ -1,17 +1,11 @@
 package com.bbanggood.springbbangupdate.controller;
 
-import com.bbanggood.springbbangupdate.entity.BBangCast;
-import com.bbanggood.springbbangupdate.entity.BBangCastId;
-import com.bbanggood.springbbangupdate.entity.BBangDirector;
-import com.bbanggood.springbbangupdate.entity.BBangDirectorId;
+import com.bbanggood.springbbangupdate.entity.*;
 import com.bbanggood.springbbangupdate.service.BBangDirectorService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Data
 @RestController
@@ -23,5 +17,15 @@ public class BBangDirectorController {
     public ResponseEntity<BBangDirector> addDirector(@RequestBody BBangDirectorId bbangDirectorId) {
         BBangDirector bbangDirector = bbangDirectorService.AddDirector(bbangDirectorId.getSetbxId(), bbangDirectorId.getVodDirector());
         return ResponseEntity.ok(bbangDirector);
+    }
+
+    @DeleteMapping("/delete/director")
+    public ResponseEntity<String> deleteVod(@RequestBody BBangDirectorId bbangDirectorId) {
+        try {
+            bbangDirectorService.DeleteDirector(bbangDirectorId.getSetbxId(), bbangDirectorId.getVodDirector());
+            return ResponseEntity.ok().body("User with setbxId " + bbangDirectorId.getSetbxId() + " has been successfully deleted.");
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
+        }
     }
 }

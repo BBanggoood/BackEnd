@@ -29,4 +29,19 @@ public class BBangDirectorService {
 
         return bbangDirectorRepository.save(bbangDirector);
     }
+
+    @Transactional
+    public void DeleteDirector(Integer setbxId, String vodDirector) {
+        UserMysql user = userRepository.findById(setbxId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+        Vod vod = vodRepository.findByVodDirector(vodDirector);
+
+        BBangDirector bbangDirector = new BBangDirector();
+        BBangDirectorId bbangDirectorId = new BBangDirectorId(setbxId, vodDirector);
+        bbangDirector.setBbangDirectorId(bbangDirectorId);
+        bbangDirector.setUserMysql(user);
+        bbangDirector.setVod(vod);
+
+        bbangDirectorRepository.delete(bbangDirector);
+    }
 }

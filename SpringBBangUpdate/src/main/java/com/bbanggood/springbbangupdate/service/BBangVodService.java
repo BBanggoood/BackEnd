@@ -33,4 +33,20 @@ public class BBangVodService {
 
         return bbangVodRepository.save(bbangVod);
     }
+
+    @Transactional
+    public void DeleteVod(Integer setbxId, Integer vodId) {
+        UserMysql user = userRepository.findById(setbxId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+        Vod vod = vodRepository.findById(vodId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid VOD ID"));
+
+        BBangVod bbangVod = new BBangVod();
+        BBangVodId bbangVodId = new BBangVodId(setbxId, vodId);
+        bbangVod.setBbangVodId(bbangVodId);
+        bbangVod.setUserMysql(user);
+        bbangVod.setVod(vod);
+
+        bbangVodRepository.delete(bbangVod);
+    }
 }

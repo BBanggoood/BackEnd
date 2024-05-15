@@ -29,4 +29,19 @@ public class BBangCastService {
 
         return bbangCastRepository.save(bbangCast);
     }
+
+    @Transactional
+    public void DeleteCast(Integer setbxId, String vodCast) {
+        UserMysql user = userRepository.findById(setbxId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+        Vod vod = vodRepository.findByVodCast(vodCast);
+
+        BBangCast bbangCast = new BBangCast();
+        BBangCastId bbangCastId = new BBangCastId(setbxId, vodCast);
+        bbangCast.setBbangCastId(bbangCastId);
+        bbangCast.setUserMysql(user);
+        bbangCast.setVod(vod);
+
+        bbangCastRepository.delete(bbangCast);
+    }
 }

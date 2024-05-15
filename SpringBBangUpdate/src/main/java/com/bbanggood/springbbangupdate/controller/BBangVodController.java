@@ -21,4 +21,14 @@ public class BBangVodController {
         BBangVod bbangVod = bbangVodService.AddVod(bbangVodId.getSetbxId(), bbangVodId.getVodId());
         return ResponseEntity.ok(bbangVod);
     }
+
+    @DeleteMapping("/delete/vod")
+    public ResponseEntity<String> deleteVod(@RequestBody BBangVodId bbangVodId) {
+        try {
+            bbangVodService.DeleteVod(bbangVodId.getSetbxId(), bbangVodId.getVodId());
+            return ResponseEntity.ok().body("User with setbxId " + bbangVodId.getSetbxId() + " has been successfully deleted.");
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
+        }
+    }
 }

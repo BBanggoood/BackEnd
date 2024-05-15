@@ -1,17 +1,11 @@
 package com.bbanggood.springbbangupdate.controller;
 
-import com.bbanggood.springbbangupdate.entity.BBangCast;
-import com.bbanggood.springbbangupdate.entity.BBangCastId;
-import com.bbanggood.springbbangupdate.entity.BBangVod;
-import com.bbanggood.springbbangupdate.entity.BBangVodId;
+import com.bbanggood.springbbangupdate.entity.*;
 import com.bbanggood.springbbangupdate.service.BBangCastService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Data
 @RestController
@@ -23,5 +17,15 @@ public class BBangCastController {
     public ResponseEntity<BBangCast> addCast(@RequestBody BBangCastId bbangCastId) {
         BBangCast bbangCast = bbangCastService.AddCast(bbangCastId.getSetbxId(), bbangCastId.getVodCast());
         return ResponseEntity.ok(bbangCast);
+    }
+
+    @DeleteMapping("/delete/cast")
+    public ResponseEntity<String> deleteCast(@RequestBody BBangCastId bbangCastId) {
+        try {
+            bbangCastService.DeleteCast(bbangCastId.getSetbxId(), bbangCastId.getVodCast());
+            return ResponseEntity.ok().body("User with setbxId " + bbangCastId.getSetbxId() + " has been successfully deleted.");
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
+        }
     }
 }
