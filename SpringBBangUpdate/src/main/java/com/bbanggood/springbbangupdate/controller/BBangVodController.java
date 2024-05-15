@@ -2,6 +2,8 @@ package com.bbanggood.springbbangupdate.controller;
 
 import com.bbanggood.springbbangupdate.entity.BBangVod;
 import com.bbanggood.springbbangupdate.entity.BBangVodId;
+import com.bbanggood.springbbangupdate.entity.UserMysql;
+import com.bbanggood.springbbangupdate.entity.Vod;
 import com.bbanggood.springbbangupdate.service.BBangVodService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +18,7 @@ public class BBangVodController {
 
     @PostMapping("/add/vod")
     public ResponseEntity<BBangVod> addVod(@RequestBody BBangVodId bbangVodId) {
-        BBangVod bbangVod = new BBangVod();
-        bbangVod.setBbangVodId(bbangVodId);
-        bbangVodService.AddVod(bbangVod);
+        BBangVod bbangVod = bbangVodService.AddVod(bbangVodId.getSetbxId(), bbangVodId.getVodId());
         return ResponseEntity.ok(bbangVod);
     }
 }

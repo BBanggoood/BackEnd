@@ -1,20 +1,22 @@
 package com.bbanggood.springbbangupdate.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "like_director")
 public class BBangDirector {
     @EmbeddedId
     private BBangDirectorId bbangDirectorId;
 
-    @MapsId("setbxId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "SETBX_ID", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "setbx_id", insertable = false, updatable = false, referencedColumnName = "setbx_id")
     private UserMysql userMysql;
 
+    @ManyToOne
+    @JoinColumn(name = "vod_director", insertable = false, updatable = false, referencedColumnName = "vod_director")
+    private Vod vod;
 }
