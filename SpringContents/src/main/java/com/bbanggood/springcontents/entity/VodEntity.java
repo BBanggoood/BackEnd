@@ -16,6 +16,10 @@ public class VodEntity {
     @Id
     private ObjectId vodId;
 
+    // MySQL에서 작성한 VOD ID
+    @Field("VOD_ID")
+    private Long vodSqlId;
+
     // 상위 10개를 선정하기 위해서 이름 변경
     @Field("VOD_CLASSIFY")
     private String vodClassify;
@@ -33,6 +37,8 @@ public class VodEntity {
     private String vodSummary;
     @Field("VOD_POSTER") // 포스터
     private String vodPoster;
+    @Field("VOD_PRICE")
+    private Long vodPrice;
 
     private String VOD_CAST_POSTER;
     private String VOD_DIRECTOR_POSTER;
@@ -42,5 +48,4 @@ public class VodEntity {
     private String VOD_TIME;
     private Date VOD_OPEN_AT;
     private Date VOD_UPDATED_AT;
-    private Long VOD_PRICE;
 }
