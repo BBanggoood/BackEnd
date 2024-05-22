@@ -17,4 +17,8 @@ public interface VodRepository extends MongoRepository<VodEntity, String> {
     List<VodIdProjection> findByVodNameLike(String vodName);
 
     Optional<VodEntity> findByVodId(String vodId);
+
+    List<VodEntity> findByVodDirector(String vodDirector);
+
+    List<VodEntity> findByVodCast(String vodCast);
 }
