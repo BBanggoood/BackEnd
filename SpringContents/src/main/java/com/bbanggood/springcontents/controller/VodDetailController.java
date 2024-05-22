@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/contents")
-public class DetailController {
+public class VodDetailController {
 
     private final VodDetailService vodDetailService;
 
     @Autowired
-    public DetailController(VodDetailService vodDetailService) {
+    public VodDetailController(VodDetailService vodDetailService) {
         this.vodDetailService = vodDetailService;
     }
 
-    @GetMapping("/detail/{vodId}")
+    @GetMapping("/detail/vod/{vodId}")
     public ResponseEntity<VodDetailDto> getVodDetail(@PathVariable String vodId) {
         return vodDetailService.getVodById(vodId)
                 .map(vodEntity -> new VodDetailDto(
