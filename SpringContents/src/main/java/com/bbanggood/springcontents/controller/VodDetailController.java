@@ -17,7 +17,7 @@ public class VodDetailController {
         this.vodDetailService = vodDetailService;
     }
 
-    @GetMapping("/detail/{vodId}")
+    @GetMapping("/detail/vod/{vodId}")
     public ResponseEntity<VodDetailDto> getVodDetail(@PathVariable String vodId) {
         return vodDetailService.getVodById(vodId)
                 .map(vodEntity -> new VodDetailDto(

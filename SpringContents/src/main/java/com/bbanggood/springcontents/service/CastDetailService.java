@@ -14,6 +14,6 @@ public class CastDetailService {
     private VodRepository vodRepository;
 
     public List<VodEntity> getVodByVodCast(String vodCast) {
-        return vodRepository.findByVodCast(vodCast);
+        return vodRepository.findByVodCastLike(vodCast);
     }
 }

@@ -23,7 +23,7 @@ public class CastDetailController {
         this.castDetailService = castDetailService;
     }
 
-    @GetMapping("/detail/{vodCast}")
+    @GetMapping("/detail/cast/{vodCast}")
     public List<CastDetailDto> getVodDetailsByCast(@PathVariable String vodCast) {
         List<VodEntity> vodEntities = castDetailService.getVodByVodCast(vodCast);
         return vodEntities.stream()

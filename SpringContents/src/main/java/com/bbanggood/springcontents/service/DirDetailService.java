@@ -14,6 +14,6 @@ public class DirDetailService {
     private VodRepository vodRepository;
 
     public List<VodEntity> getVodByVodDirector(String vodDirector) {
-        return vodRepository.findByVodDirector(vodDirector);
+        return vodRepository.findByVodDirectorLike(vodDirector);
     }
 }

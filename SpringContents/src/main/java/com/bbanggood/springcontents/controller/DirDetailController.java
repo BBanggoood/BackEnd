@@ -23,13 +23,13 @@ public class DirDetailController {
         this.dirDetailService = dirDetailService;
     }
 
-    @GetMapping("/detail/{vodDirector}")
+    @GetMapping("/detail/director/{vodDirector}")
     public List<DirDetailDto> getVodDetailsByDirector(@PathVariable String vodDirector) {
         List<VodEntity> vodEntities = dirDetailService.getVodByVodDirector(vodDirector);
         return vodEntities.stream()
                 .map(vod -> new DirDetailDto(
                         vod.getVodDirector(),
-                        vod.getVodDirectorPoster(),
+                        vod.getVodCastPoster(),
                         vod.getVodId().toHexString(),
                         vod.getVodPoster(),
                         vod.getVodName()))
