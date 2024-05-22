@@ -1,0 +1,32 @@
+server:
+  port: 8070
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: login
+          uri: http://localhost:8080/
+          predicates:
+            - Path=/login/**
+          filters:
+            - name: LoggingFilter
+
+        - id: vod-contents
+          uri: http://localhost:8080/
+          predicates:
+            - Path=/contents/**
+          filters:
+            - name: LoggingFilter
+
+
+
+
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.boot: DEBUG

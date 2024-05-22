@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/contents")
-public class DetailController {
+public class VodDetailController {
 
     private final VodDetailService vodDetailService;
 
     @Autowired
-    public DetailController(VodDetailService vodDetailService) {
+    public VodDetailController(VodDetailService vodDetailService) {
         this.vodDetailService = vodDetailService;
     }
 
