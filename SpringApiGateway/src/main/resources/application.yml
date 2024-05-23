@@ -14,17 +14,19 @@ spring:
           filters:
             - name: LoggingFilter
 
+        - id: validation
+          uri: http://localhost:8080/
+          predicates:
+            - Path=/validate-token/**
+          filters:
+            - name: LoggingFilter
+
         - id: vod-contents
           uri: http://localhost:8080/
           predicates:
             - Path=/contents/**
           filters:
             - name: LoggingFilter
-
-
-
-
-
 
 logging:
   level:
