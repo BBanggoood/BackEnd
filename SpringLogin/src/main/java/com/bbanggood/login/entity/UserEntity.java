@@ -25,6 +25,6 @@ public class UserEntity {
     private Date USER_BIRTH;
     private String USER_CREATED_AT;
     private String USER_NAME;
-    private Long USER_PHONE;
+    private String USER_PHONE;
     private String USER_SEX;
 }
