@@ -22,7 +22,7 @@ public class VodEntity {
 
 
     // 상위 10개를 선정하기 위해서 이름 변경
-    @Field("VOD_CLASSIFY")
+    @Field("VOD_CATEGORY")
     private String vodClassify;
     @Field("VOD_COUNT")
     private Long vodCount;
