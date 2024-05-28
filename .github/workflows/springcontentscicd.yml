@@ -1,11 +1,9 @@
 name: SpringContents Build and Push Docker Image
 
 on:
-  pull_request:
+  push:
     branches:
-      - develop
-    paths:
-      - 'SpringContents/**'
+      - dev_junghwan
 
 jobs:
   build:

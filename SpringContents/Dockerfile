@@ -5,12 +5,13 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the build.gradle and settings.gradle files
-COPY build.gradle settings.gradle /app/
+COPY build.gradle /app/
+COPY settings.gradle /app/
 
 # Copy the gradle wrapper and give execute permissions
 COPY gradlew /app/
 COPY gradle /app/gradle
-RUN chmod +x gradlew
+RUN chmod +x /app/gradlew
 
 # Copy the source code
 COPY src /app/src
@@ -19,10 +20,10 @@ COPY src /app/src
 RUN ./gradlew bootJar
 
 # Copy the built JAR file to the app directory
-COPY build/libs/springcontents-0.0.1-SNAPSHOT.jar /app/springcontents.jar
+COPY build/libs/*.jar /app/springcontents.jar
 
 # Expose the port the app runs on
 EXPOSE 8080
 
-# Run the jar file1123
+# Run the jar file
 ENTRYPOINT ["java", "-jar", "/app/springcontents.jar"]
