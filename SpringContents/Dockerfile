@@ -5,12 +5,14 @@ FROM gradle:7.4.2-jdk17 AS build
 WORKDIR /home/gradle/project
 
 # Gradle 캐시를 활용하기 위해 소스 파일과 Gradle 설정 파일을 분리하여 복사
-COPY SpringContents/build.gradle.kts SpringContents/settings.gradle.kts ./
-COPY SpringContents/gradle ./gradle
+COPY build.gradle.kts settings.gradle.kts ./
+COPY gradle ./gradle
+
+# Gradle 빌드 실행
 RUN gradle clean build --no-daemon
 
 # 소스 파일 복사 및 빌드 실행
-COPY SpringContents/src ./src
+COPY src ./src
 RUN gradle build --no-daemon
 
 # 2단계: 런타임 이미지를 사용하여 애플리케이션 실행
