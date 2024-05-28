@@ -3,7 +3,7 @@ name: SpringContents Build and Push Docker Image
 on:
   push:
     branches:
-      - dev_junghwan
+      - dev_jughwan
 
 jobs:
   build:
