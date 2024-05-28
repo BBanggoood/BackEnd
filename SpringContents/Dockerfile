@@ -20,6 +20,7 @@ COPY src /app/src
 RUN ./gradlew bootJar
 
 # Copy the built JAR file to the app directory
+RUN mkdir -p /app/build/libs/
 COPY build/libs/*.jar /app/springcontents.jar
 
 # Expose the port the app runs on
