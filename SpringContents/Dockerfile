@@ -1,30 +1,26 @@
-# Use an official OpenJDK runtime as a parent image
+# 1단계: 빌드 이미지를 사용하여 애플리케이션 빌드
+FROM gradle:7.4.2-jdk17 AS build
+
+# 작업 디렉토리 설정
+WORKDIR /home/gradle/project
+
+# Gradle 캐시를 활용하기 위해 소스 파일과 Gradle 설정 파일을 분리하여 복사
+COPY SpringContents/build.gradle.kts SpringContents/settings.gradle.kts ./
+COPY SpringContents/gradle ./gradle
+RUN gradle clean build --no-daemon
+
+# 소스 파일 복사 및 빌드 실행
+COPY SpringContents/src ./src
+RUN gradle build --no-daemon
+
+# 2단계: 런타임 이미지를 사용하여 애플리케이션 실행
 FROM openjdk:17-jdk-slim
 
-# Set the working directory
-WORKDIR /app
+# 빌드 결과물을 복사
+COPY --from=build /home/gradle/project/build/libs/SpringContents-0.0.1-SNAPSHOT.jar /app/SpringContents.jar
 
-# Copy the build.gradle and settings.gradle files
-COPY build.gradle /app/
-COPY settings.gradle /app/
-
-# Copy the gradle wrapper and give execute permissions
-COPY gradlew /app/
-COPY gradle /app/gradle
-RUN chmod +x /app/gradlew
-
-# Copy the source code
-COPY src /app/src
-
-# Download dependencies and build the application
-RUN ./gradlew bootJar
-
-# Copy the built JAR file to the app directory
-RUN mkdir -p /app/build/libs/
-COPY build/libs/*.jar /app/springcontents.jar
-
-# Expose the port the app runs on
+# 애플리케이션이 사용할 포트 노출
 EXPOSE 8080
 
-# Run the jar file
-ENTRYPOINT ["java", "-jar", "/app/springcontents.jar"]
+# 애플리케이션 실행 명령어 설정
+ENTRYPOINT ["java", "-jar", "/app/SpringContents.jar"]
