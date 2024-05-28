@@ -23,11 +23,14 @@ jobs:
           distribution: 'temurin'  # 또는 'zulu', 'adopt' 등 필요에 따라 선택
           java-version: '17'
 
+      - name: Change directory to SpringContents
+        run: cd SpringContents
+
       - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
+        run: chmod +x ./SpringContents/gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./SpringContents/gradlew build
 
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
@@ -41,5 +44,5 @@ jobs:
           ECR_REPOSITORY: springcontents
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./SpringContents
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
