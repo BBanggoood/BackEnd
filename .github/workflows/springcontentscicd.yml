@@ -23,14 +23,11 @@ jobs:
           distribution: 'temurin'  # 또는 'zulu', 'adopt' 등 필요에 따라 선택
           java-version: '17'
 
-      - name: Change directory to SpringContents
-        run: cd SpringContents
-
       - name: Grant execute permission for gradlew
         run: chmod +x ./SpringContents/gradlew
 
       - name: Build with Gradle
-        run: ./SpringContents/gradlew build
+        run: ./SpringContents/gradlew build -p ./SpringContents
 
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
