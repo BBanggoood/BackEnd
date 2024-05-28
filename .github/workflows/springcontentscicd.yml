@@ -30,7 +30,8 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Gradle
-        run: ./gradlew build -p SpringContents
+        run: ./gradlew build
+        working-directory: SpringContents
 
       - name: Build, tag, and push Docker image
         env:
