@@ -24,5 +24,5 @@ COPY build/libs/springcontents-0.0.1-SNAPSHOT.jar /app/springcontents.jar
 # Expose the port the app runs on
 EXPOSE 8080
 
-# Run the jar file
+# Run the jar file1
 ENTRYPOINT ["java", "-jar", "/app/springcontents.jar"]
