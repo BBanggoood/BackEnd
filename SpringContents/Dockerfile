@@ -12,6 +12,9 @@ COPY settings.gradle /app/
 COPY gradlew /app/
 COPY gradle /app/gradle
 
+# Set executable permissions for gradlew
+RUN chmod +x /app/gradlew
+
 # Copy the source code
 COPY src /app/src
 
@@ -21,6 +24,5 @@ RUN ./gradlew bootJar
 # Expose the port the app runs on
 EXPOSE 8080
 
-# test3
 # Run the jar file
 ENTRYPOINT ["java","-jar","build/libs/springcontents-0.0.1-SNAPSHOT.jar"]
