@@ -45,4 +45,5 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Output image info
-        run: echo "Docker image built and pushed: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        run:
+          echo "Docker image built and pushed: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
