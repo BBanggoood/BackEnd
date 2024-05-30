@@ -8,8 +8,6 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class ViewRecordDTO {
-    private Integer id;
-
     private Integer setbxId;
 
     private Integer vodId;
