@@ -1,52 +1,39 @@
 package com.bbanggood.springbbangupdate.service;
 
 import com.bbanggood.springbbangupdate.entity.BBangVod;
-import com.bbanggood.springbbangupdate.entity.BBangVodId;
-import com.bbanggood.springbbangupdate.entity.UserMysql;
-import com.bbanggood.springbbangupdate.entity.Vod;
 import com.bbanggood.springbbangupdate.repository.BBangVodRepository;
-import com.bbanggood.springbbangupdate.repository.UserRepository;
-import com.bbanggood.springbbangupdate.repository.VodRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class BBangVodService {
     private final BBangVodRepository bbangVodRepository;
-    private final UserRepository userRepository;
-    private final VodRepository vodRepository;
 
     @Transactional
-    public BBangVod AddVod(Integer setbxId, Integer vodId) {
-        UserMysql user = userRepository.findById(setbxId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
-        Vod vod = vodRepository.findById(vodId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid VOD ID"));
+    public BBangVod AddVod(Integer setbxId, Integer vodId, String vodPoster) {
+        BBangVod vod = new BBangVod();
 
-        BBangVod bbangVod = new BBangVod();
-        BBangVodId bbangVodId = new BBangVodId(setbxId, vodId);
-        bbangVod.setBbangVodId(bbangVodId);
-        bbangVod.setUserMysql(user);
-        bbangVod.setVod(vod);
+        vod.setSetbxId(setbxId);
+        vod.setVodId(vodId);
+        vod.setVodPoster(vodPoster);
 
-        return bbangVodRepository.save(bbangVod);
+        return bbangVodRepository.save(vod);
     }
 
     @Transactional
     public void DeleteVod(Integer setbxId, Integer vodId) {
-        UserMysql user = userRepository.findById(setbxId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
-        Vod vod = vodRepository.findById(vodId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid VOD ID"));
+        Optional<BBangVod> vodOptional = bbangVodRepository.findBySetbxIdAndVodId(setbxId, vodId);
 
-        BBangVod bbangVod = new BBangVod();
-        BBangVodId bbangVodId = new BBangVodId(setbxId, vodId);
-        bbangVod.setBbangVodId(bbangVodId);
-        bbangVod.setUserMysql(user);
-        bbangVod.setVod(vod);
-
-        bbangVodRepository.delete(bbangVod);
+        // vod가 존재하는지 확인
+        if (vodOptional.isPresent()) {
+            BBangVod vod = vodOptional.get();
+            bbangVodRepository.delete(vod);
+        } else {
+            throw new IllegalArgumentException("No record found with setbxId: " + setbxId + " and vodId: " + vodId);
+        }
     }
 }
