@@ -36,8 +36,8 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+        run: |
+          aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: Build, tag, and push Docker image to ECR
         env:
@@ -46,5 +46,4 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./SpringSignUp
-          echo ${{ secrets.AWS_ACCESS_KEY_ID }} | docker login -u AWS --password-stdin $ECR_REGISTRY
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
