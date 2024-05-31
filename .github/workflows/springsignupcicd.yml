@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -36,8 +36,8 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Log in to Amazon ECR
-        run: |
-          aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $ECR_REGISTRY
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build, tag, and push Docker image to ECR
         env:
