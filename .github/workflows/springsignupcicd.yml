@@ -3,7 +3,7 @@ name: Build and Push Docker image to ECR
 on:
   push:
     branches:
-      - dev_juwon
+      - feature31
 
 permissions:
   id-token: write
@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 				
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -44,8 +44,7 @@ jobs:
           ECR_REGISTRY: 767397880837.dkr.ecr.ap-northeast-2.amazonaws.com
           ECR_REPOSITORY: springsignup
           IMAGE_TAG: ${{ github.sha }}
-        
-        # ./SpringSignUp 디렉토리 내의 Dockerfile을 사용하여 이미지를 빌드
+
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./SpringSignUp
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
