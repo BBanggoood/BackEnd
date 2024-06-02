@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
-@Document(collection = "like_director")
+@Document(collection = "bbang_director")
 public class BBangDirector {
     @Id
     private ObjectId bbangDirectorId;
@@ -17,4 +17,7 @@ public class BBangDirector {
 
     @Field("VOD_DIRECTOR")
     private String vodDirector;
+
+    @Field("VOD_DIRECTOR_POSTER")
+    private String vodDirectorPoster;
 }
