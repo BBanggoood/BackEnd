@@ -3,7 +3,7 @@ name: Build and Push Docker image to ECR
 on:
   push:
     branches:
-      - feature31
+      - dev_juwon
 
 permissions:
   id-token: write
