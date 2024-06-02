@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "mysql_user")
+@Table(name = "user")
 public class MysqlUser {
     @Id
     @Column(name = "SETBX_ID", nullable = false)

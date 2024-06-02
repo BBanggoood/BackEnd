@@ -1,9 +1,9 @@
 package com.bbanggood.springbbangupdate.controller;
 
+import com.bbanggood.springbbangupdate.DTO.BBangCastDTO;
 import com.bbanggood.springbbangupdate.entity.*;
 import com.bbanggood.springbbangupdate.service.BBangCastService;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.*;
 public class BBangCastController {
     private final BBangCastService bbangCastService;
 
-    @PostMapping("/add/cast")
-    public ResponseEntity<BBangCast> addCast(@RequestBody BBangCastId bbangCastId) {
-        BBangCast bbangCast = bbangCastService.AddCast(bbangCastId.getSetbxId(), bbangCastId.getVodCast());
+    @PostMapping("/cast")
+    public ResponseEntity<BBangCast> addCast(@RequestBody BBangCastDTO bbangCastDTO) {
+        BBangCast bbangCast = bbangCastService.AddCast(bbangCastDTO.getSetbxId(), bbangCastDTO.getVodCast(), bbangCastDTO.getVodCastPoster());
         return ResponseEntity.ok(bbangCast);
     }
 
-    @DeleteMapping("/delete/cast")
-    public ResponseEntity<String> deleteCast(@RequestBody BBangCastId bbangCastId) {
+    @DeleteMapping("/cast")
+    public ResponseEntity<String> deleteCast(@RequestBody BBangCastDTO bbangCastDTO) {
         try {
-            bbangCastService.DeleteCast(bbangCastId.getSetbxId(), bbangCastId.getVodCast());
-            return ResponseEntity.ok().body("User with setbxId " + bbangCastId.getSetbxId() + " has been successfully deleted.");
-        } catch (RuntimeException ex) {
-            return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
+            bbangCastService.DeleteCast(bbangCastDTO.getSetbxId(), bbangCastDTO.getVodCast());
+            return ResponseEntity.ok().body("User " + bbangCastDTO.getSetbxId() + " with vodCast " + bbangCastDTO.getVodCast() + " has been successfully deleted.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 }

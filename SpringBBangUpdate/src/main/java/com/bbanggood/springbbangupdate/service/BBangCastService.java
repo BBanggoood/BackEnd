@@ -2,46 +2,38 @@ package com.bbanggood.springbbangupdate.service;
 
 import com.bbanggood.springbbangupdate.entity.*;
 import com.bbanggood.springbbangupdate.repository.BBangCastRepository;
-import com.bbanggood.springbbangupdate.repository.UserRepository;
-import com.bbanggood.springbbangupdate.repository.VodRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class BBangCastService {
     private final BBangCastRepository bbangCastRepository;
-    private final UserRepository userRepository;
-    private final VodRepository vodRepository;
 
     @Transactional
-    public BBangCast AddCast(Integer setbxId, String vodCast) {
-        UserMysql user = userRepository.findById(setbxId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
-        Vod vod = vodRepository.findByVodCast(vodCast);
+    public BBangCast AddCast(Integer setbxId, String vodCast, String vodCastPoster) {
+        BBangCast cast = new BBangCast();
 
-        BBangCast bbangCast = new BBangCast();
-        BBangCastId bbangCastId = new BBangCastId(setbxId, vodCast);
-        bbangCast.setBbangCastId(bbangCastId);
-        bbangCast.setUserMysql(user);
-        bbangCast.setVod(vod);
+        cast.setSetbxId(setbxId);
+        cast.setVodCast(vodCast);
+        cast.setVodCastPoster(vodCastPoster);
 
-        return bbangCastRepository.save(bbangCast);
+        return bbangCastRepository.save(cast);
     }
 
     @Transactional
     public void DeleteCast(Integer setbxId, String vodCast) {
-        UserMysql user = userRepository.findById(setbxId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
-        Vod vod = vodRepository.findByVodCast(vodCast);
+        Optional<BBangCast> castOptional = bbangCastRepository.findBySetbxIdAndVodCast(setbxId, vodCast);
 
-        BBangCast bbangCast = new BBangCast();
-        BBangCastId bbangCastId = new BBangCastId(setbxId, vodCast);
-        bbangCast.setBbangCastId(bbangCastId);
-        bbangCast.setUserMysql(user);
-        bbangCast.setVod(vod);
-
-        bbangCastRepository.delete(bbangCast);
+        // cast가 존재하는지 확인
+        if (castOptional.isPresent()) {
+            BBangCast cast = castOptional.get();
+            bbangCastRepository.delete(cast);
+        } else {
+            throw new IllegalArgumentException("No record found with setbxId: " + setbxId + " and vodCast: " + vodCast);
+        }
     }
 }

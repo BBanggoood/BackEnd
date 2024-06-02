@@ -1,22 +1,26 @@
 package com.bbanggood.springbbangupdate.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
-@Data
-@NoArgsConstructor
-@Table(name = "like_cast")
+@Table(name = "bbang_cast")
 public class BBangCast {
-    @EmbeddedId
-    private BBangCastId bbangCastId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BBANG_CAST_ID", nullable = false)
+    private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "setbx_id", insertable = false, updatable = false, referencedColumnName = "setbx_id")
-    private UserMysql userMysql;
+    @Column(name = "SETBX_ID")
+    private Integer setbxId;
 
-    @ManyToOne
-    @JoinColumn(name = "vod_cast", insertable = false, updatable = false, referencedColumnName = "vod_cast")
-    private Vod vod;
+    @Column(name = "VOD_CAST", length = 512)
+    private String vodCast;
+
+    @Column(name = "VOD_CAST_POSTER", length = 1024)
+    private String vodCastPoster;
+
 }
