@@ -1,11 +1,11 @@
-name: Build and Push Sign Up Docker image to ECR
+name: Build and Push View Record Docker image to ECR
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'SpringSignUp/**'
+      - 'SpringViewRecord/**'
 
 permissions:
   id-token: write
@@ -26,10 +26,10 @@ jobs:
           java-version: '17'
 
       - name: Grant execute permission for gradlew
-        run: chmod +x ./SpringSignUp/gradlew
+        run: chmod +x ./SpringViewRecord/gradlew
 
       - name: Build with Gradle
-        run: ./SpringSignUp/gradlew build -p ./SpringSignUp
+        run: ./SpringViewRecord/gradlew build -p ./SpringViewRecord
 
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
@@ -44,8 +44,8 @@ jobs:
       - name: Build, tag, and push Docker image to ECR
         env:
           ECR_REGISTRY: 767397880837.dkr.ecr.ap-northeast-2.amazonaws.com
-          ECR_REPOSITORY: springsignup
+          ECR_REPOSITORY: springviewrecord
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./SpringSignUp
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./SpringViewRecord
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
