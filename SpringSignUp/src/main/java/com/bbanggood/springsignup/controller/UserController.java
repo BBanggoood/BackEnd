@@ -19,8 +19,8 @@ public class UserController {
     public String signup(@Valid @RequestBody UserSignUpDTO userSignUpDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
 //            return "signup_form";
-            return "오류";
-//            return bindingResult.getAllErrors().toString();
+//            return "오류";
+            return bindingResult.getAllErrors().toString();
         }
 
         if (!userSignUpDTO.getUserPwd().equals(userSignUpDTO.getConfirmUserPwd())) {
