@@ -5,7 +5,7 @@ on:
     branches:
       - dev_jughwan
     paths:
-      - 'SpringContents/**'
+      - 'SpringLogin/**'
 
 permissions:
   id-token: write
@@ -26,10 +26,10 @@ jobs:
           java-version: '17'
 
       - name: Grant execute permission for gradlew
-        run: chmod +x ./SpringContents/gradlew
+        run: chmod +x ./SpringLogin/gradlew
 
       - name: Build with Gradle
-        run: ./SpringContents/gradlew build -p ./SpringContents
+        run: ./SpringLogin/gradlew build -p ./SpringLogin
 
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
@@ -44,8 +44,8 @@ jobs:
       - name: Build, tag, and push Docker image to ECR
         env:
           ECR_REGISTRY: 767397880837.dkr.ecr.ap-northeast-2.amazonaws.com
-          ECR_REPOSITORY: springcontents
+          ECR_REPOSITORY: springlogin
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./SpringContents
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./SpringLogin
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
