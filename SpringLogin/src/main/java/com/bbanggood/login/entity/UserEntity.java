@@ -22,14 +22,16 @@ public class UserEntity {
     @Field("USER_ROLE")
     private String role;
 
-    @Field("USER_BIRTH")
-    private String birth;
     @Field("USER_NAME")
     private String name;
     @Field("USER_SEX")
     private String gender;
+    @Field("USER_BIRTH")
+    private String birth;
     @Field("USER_PHONE")
     private String phone;
+    @Field("USER_EMAIL")
+    private String email;
 
     private String USER_CREATED_AT;
 }
