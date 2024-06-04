@@ -16,7 +16,7 @@ public class UserEntity {
     private ObjectId id;
 
     @Field("SETBX_ID")
-    private Integer username;
+    private String username;
     @Field("USER_PWD")
     private String password;
     @Field("USER_ROLE")
