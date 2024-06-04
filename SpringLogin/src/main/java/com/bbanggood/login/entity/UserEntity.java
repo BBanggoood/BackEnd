@@ -8,23 +8,28 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
-@Document(collection = "user_mongodb")
+@Document(collection = "user")
 @Data
 public class UserEntity {
 
     @Id
     private ObjectId id;
 
-    @Field("USER_EMAIL")
-    private String username;
+    @Field("SETBX_ID")
+    private Integer username;
     @Field("USER_PWD")
     private String password;
     @Field("USER_ROLE")
     private String role;
 
-    private Date USER_BIRTH;
+    @Field("USER_BIRTH")
+    private String birth;
+    @Field("USER_NAME")
+    private String name;
+    @Field("USER_SEX")
+    private String gender;
+    @Field("USER_PHONE")
+    private String phone;
+
     private String USER_CREATED_AT;
-    private String USER_NAME;
-    private String USER_PHONE;
-    private String USER_SEX;
 }
