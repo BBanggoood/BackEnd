@@ -1,3 +1,4 @@
+// 사용 X. account/signup 에 같이 추가
 package com.bbanggood.springsignup.kafka;
 
 import lombok.RequiredArgsConstructor;
