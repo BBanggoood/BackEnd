@@ -22,14 +22,16 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'  # 또는 'zulu', 'adopt' 등 필요에 따라 선택
+          distribution: 'temurin'
           java-version: '17'
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./SpringLogin/gradlew
 
       - name: Build with Gradle
-        run: cd SpringLogin && ./gradlew build
+        run: |
+          cd SpringLogin
+          ./gradlew build
 
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v2
@@ -38,7 +40,6 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Log in to Amazon ECR
-        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build, tag, and push Docker image to ECR
@@ -47,5 +48,6 @@ jobs:
           ECR_REPOSITORY: springlogin
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f SpringLogin/Dockerfile ./SpringLogin
+          cd SpringLogin
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
