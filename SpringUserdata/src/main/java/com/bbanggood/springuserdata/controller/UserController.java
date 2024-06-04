@@ -21,7 +21,6 @@ public class UserController {
             com.bbanggood.springuserdata.entity.UserEntity userEntity = userEntityOptional.get();
             userEntity.setPassword(null);  // 패스워드를 응답에서 제외합니다.
             userEntity.setRole(null);      // 롤을 응답에서 제외합니다.
-            userEntity.setUSER_CREATED_AT(null); // 생성 시간을 응답에서 제외합니다.
             return ResponseEntity.ok(userEntity);
         } else {
             return ResponseEntity.notFound().build();
