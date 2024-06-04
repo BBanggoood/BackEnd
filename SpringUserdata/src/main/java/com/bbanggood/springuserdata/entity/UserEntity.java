@@ -1,4 +1,4 @@
-package com.bbanggood.login.entity;
+package com.bbanggood.springuserdata.entity;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
