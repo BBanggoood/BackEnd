@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatMessage {
-    private Integer userSetbxId;
+    private String userSetbxId;
     private String userEmail;
     private String userPwd;
     private String userName;

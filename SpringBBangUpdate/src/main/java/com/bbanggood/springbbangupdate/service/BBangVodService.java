@@ -1,5 +1,6 @@
 package com.bbanggood.springbbangupdate.service;
 
+import com.bbanggood.springbbangupdate.entity.BBangCast;
 import com.bbanggood.springbbangupdate.entity.BBangVod;
 import com.bbanggood.springbbangupdate.repository.BBangVodRepository;
 import jakarta.transaction.Transactional;
@@ -15,13 +16,19 @@ public class BBangVodService {
 
     @Transactional
     public BBangVod AddVod(Integer setbxId, Integer vodId, String vodPoster) {
-        BBangVod vod = new BBangVod();
+        Optional<BBangVod> vodOptional = bbangVodRepository.findBySetbxIdAndVodId(setbxId, vodId);
 
-        vod.setSetbxId(setbxId);
-        vod.setVodId(vodId);
-        vod.setVodPoster(vodPoster);
+        if (vodOptional.isEmpty()) {
+            BBangVod vod = new BBangVod();
 
-        return bbangVodRepository.save(vod);
+            vod.setSetbxId(setbxId);
+            vod.setVodId(vodId);
+            vod.setVodPoster(vodPoster);
+
+            return bbangVodRepository.save(vod);
+        } else {
+            throw new IllegalArgumentException("No record found with setbxId: " + setbxId + " and vodId: " + vodId);
+        }
     }
 
     @Transactional

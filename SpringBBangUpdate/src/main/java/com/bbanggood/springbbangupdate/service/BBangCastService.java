@@ -15,13 +15,19 @@ public class BBangCastService {
 
     @Transactional
     public BBangCast AddCast(Integer setbxId, String vodCast, String vodCastPoster) {
-        BBangCast cast = new BBangCast();
+        Optional<BBangCast> castOptional = bbangCastRepository.findBySetbxIdAndVodCast(setbxId, vodCast);
 
-        cast.setSetbxId(setbxId);
-        cast.setVodCast(vodCast);
-        cast.setVodCastPoster(vodCastPoster);
+        if (castOptional.isEmpty()) {
+            BBangCast cast = new BBangCast();
 
-        return bbangCastRepository.save(cast);
+            cast.setSetbxId(setbxId);
+            cast.setVodCast(vodCast);
+            cast.setVodCastPoster(vodCastPoster);
+
+            return bbangCastRepository.save(cast);
+        } else {
+            throw new IllegalArgumentException("No record found with setbxId: " + setbxId + " and vodCast: " + vodCast);
+        }
     }
 
     @Transactional

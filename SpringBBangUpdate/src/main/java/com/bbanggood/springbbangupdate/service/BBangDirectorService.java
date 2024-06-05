@@ -15,13 +15,19 @@ public class BBangDirectorService {
 
     @Transactional
     public BBangDirector AddDirector(Integer setbxId, String vodDirector, String vodDirectorPoster) {
-        BBangDirector director = new BBangDirector();
+        Optional<BBangDirector> directorOptional = bbangDirectorRepository.findBySetbxIdAndVodDirector(setbxId, vodDirector);
 
-        director.setSetbxId(setbxId);
-        director.setVodDirector(vodDirector);
-        director.setVodDirectorPoster(vodDirectorPoster);
+        if (directorOptional.isEmpty()) {
+            BBangDirector director = new BBangDirector();
 
-        return bbangDirectorRepository.save(director);
+            director.setSetbxId(setbxId);
+            director.setVodDirector(vodDirector);
+            director.setVodDirectorPoster(vodDirectorPoster);
+
+            return bbangDirectorRepository.save(director);
+        } else {
+            throw new IllegalArgumentException("No record found with setbxId: " + setbxId + " and vodDirector: " + vodDirector);
+        }
     }
 
     @Transactional
