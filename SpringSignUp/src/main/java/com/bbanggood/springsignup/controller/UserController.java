@@ -38,7 +38,7 @@ public class UserController {
                 userSignUpDTO.getUserSex(), userSignUpDTO.getUserBirth());
 
         // 카프카 연동
-        chatmessage.setUserSetbxId(userSignUpDTO.getUserSetbxId());
+        chatmessage.setUserSetbxId(userSignUpDTO.getUserSetbxId().toString());
         chatmessage.setUserEmail(userSignUpDTO.getUserEmail());
         chatmessage.setUserPwd(userSignUpDTO.getUserPwd());
         chatmessage.setUserName(userSignUpDTO.getUserName());
