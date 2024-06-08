@@ -9,16 +9,16 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/contents/adult")
-public class TopAdult {
+@RequestMapping("/contents/animation")
+public class TopAnimation {
 
     private final VodRepository VodRepository;
-    public TopAdult(VodRepository VodRepository) {
+    public TopAnimation(VodRepository VodRepository) {
         this.VodRepository = VodRepository;
     }
 
     @GetMapping("/top")
-    public List<VodIdProjection> getTopKidsMovies() {
-        return VodRepository.findTop10ByVodClassifyInOrderByVodCountDesc(Arrays.asList("성인"));
+    public List<VodIdProjection> getTopAnimationMovies() {
+        return VodRepository.findTop10ByVodClassifyInOrderByVodCountDesc(Arrays.asList("애니메이션"));
     }
 }
