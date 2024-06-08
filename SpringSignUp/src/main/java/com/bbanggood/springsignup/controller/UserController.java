@@ -2,6 +2,8 @@ package com.bbanggood.springsignup.controller;
 
 import com.bbanggood.springsignup.DTO.UserSignUpDTO;
 import com.bbanggood.springsignup.entity.MysqlUser;
+import com.bbanggood.springsignup.kafka.ChatMessage;
+import com.bbanggood.springsignup.kafka.KafkaProducerService;
 import com.bbanggood.springsignup.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -9,24 +11,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/account")
 public class UserController {
     private final UserService userService;
+    private final KafkaProducerService producerService;
 
     @PostMapping("/signup")
-    public String signup(@Valid @RequestBody UserSignUpDTO userSignUpDTO, BindingResult bindingResult) {
+    public String signup(@Valid @RequestBody UserSignUpDTO userSignUpDTO, BindingResult bindingResult, ChatMessage chatmessage) {
         if (bindingResult.hasErrors()) {
-//            return "signup_form";
-//            return "오류";
             return bindingResult.getAllErrors().toString();
         }
 
         if (!userSignUpDTO.getUserPwd().equals(userSignUpDTO.getConfirmUserPwd())) {
             bindingResult.rejectValue("confirmUserPwd", "confirmUserPwd.invalid",
                     "2개의 비밀번호가 일치하지 않습니다.");
-//            return "signup_form";
             return bindingResult.getAllErrors().toString();
         }
 
@@ -34,7 +37,16 @@ public class UserController {
                 userSignUpDTO.getUserName(), userSignUpDTO.getUserPhone(),
                 userSignUpDTO.getUserSex(), userSignUpDTO.getUserBirth());
 
-//        return "redirect:/";
+        // 카프카 연동
+        chatmessage.setUserSetbxId(userSignUpDTO.getUserSetbxId().toString());
+        chatmessage.setUserEmail(userSignUpDTO.getUserEmail());
+        chatmessage.setUserPwd(userSignUpDTO.getUserPwd());
+        chatmessage.setUserName(userSignUpDTO.getUserName());
+        chatmessage.setUserPhone(userSignUpDTO.getUserPhone());
+        chatmessage.setUserSex(userSignUpDTO.getUserSex());
+        chatmessage.setUserBirth(userSignUpDTO.getUserBirth());
+
+        producerService.sendMessage(chatmessage);
         return "회원 가입 성공!!";
     }
 
