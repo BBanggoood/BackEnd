@@ -45,27 +45,41 @@ public class UserController {
         chatmessage.setUserPhone(userSignUpDTO.getUserPhone());
         chatmessage.setUserSex(userSignUpDTO.getUserSex());
         chatmessage.setUserBirth(userSignUpDTO.getUserBirth());
+        producerService.sendSignUpMessage(chatmessage);
 
-        producerService.sendMessage(chatmessage);
         return "회원 가입 성공!!";
     }
 
     @DeleteMapping("/withdraw")
-    public ResponseEntity<String> withdraw(@RequestBody MysqlUser mysqlUser) {
+    public ResponseEntity<String> withdraw(@RequestBody MysqlUser mysqlUser, ChatMessage chatmessage) {
         try {
             userService.UserWithdraw(mysqlUser.getSetbxId());
-            return ResponseEntity.ok().body("User with email " + mysqlUser.getUserEmail() + " has been successfully deleted.");
+
+            // 카프카 연동
+            chatmessage.setUserSetbxId(mysqlUser.getSetbxId().toString());
+            producerService.sendWithdrawMessage(chatmessage);
+
+            return ResponseEntity.ok().body("User with setbxId " + mysqlUser.getSetbxId() + " has been successfully deleted.");
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
         }
     }
 
-    @PatchMapping("/update/userdata")
-    public ResponseEntity<String> updateuserdata(@RequestBody MysqlUser mysqlUser) {
+    @PatchMapping("/update")
+    public ResponseEntity<String> updateuserdata(@RequestBody MysqlUser mysqlUser, ChatMessage chatmessage) {
         try {
             userService.UpdateUserData(mysqlUser.getSetbxId(), mysqlUser.getUserPwd(), mysqlUser.getConfirmUserPwd(),
-                    mysqlUser.getUserName(), mysqlUser.getUserBirth(), mysqlUser.getUserSex());
-            return ResponseEntity.ok().body("User data has been successfully changed.");
+                    mysqlUser.getUserName(), mysqlUser.getUserSex(), mysqlUser.getUserBirth());
+
+            // 카프카 연동
+            chatmessage.setUserSetbxId(mysqlUser.getSetbxId().toString());
+            chatmessage.setUserPwd(mysqlUser.getUserPwd());
+            chatmessage.setUserName(mysqlUser.getUserName());
+            chatmessage.setUserSex(mysqlUser.getUserSex());
+            chatmessage.setUserBirth(mysqlUser.getUserBirth());
+            producerService.sendUpdateMessage(chatmessage);
+
+            return ResponseEntity.ok().body("User with setbxId " + mysqlUser.getSetbxId() +  " has been successfully changed.");
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
         }

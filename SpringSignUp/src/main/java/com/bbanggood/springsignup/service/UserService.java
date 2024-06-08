@@ -44,7 +44,7 @@ public class UserService {
     }
 
     public void UpdateUserData(Integer setbxId, String newPassword, String confirmPassword,
-                                String name, LocalDate birth, String sex) {
+                                String name, String sex, LocalDate birth) {
         Optional<MysqlUser> userOptional = Optional.ofNullable(userRepository.findBySetbxId(setbxId));
 
         // 사용자가 존재하는지 확인
@@ -54,8 +54,8 @@ public class UserService {
             user.setUserPwd(newPassword);
             user.setConfirmUserPwd(confirmPassword);
             user.setUserName(name);
-            user.setUserBirth(birth);
             user.setUserSex(sex);
+            user.setUserBirth(birth);
 
             if (newPassword.equals(confirmPassword)) {
                 user.setUserPwd(passwordEncoder.encode(newPassword));
