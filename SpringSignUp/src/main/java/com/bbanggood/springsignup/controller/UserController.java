@@ -59,7 +59,7 @@ public class UserController {
             chatmessage.setUserSetbxId(mysqlUser.getSetbxId().toString());
             producerService.sendWithdrawMessage(chatmessage);
 
-            return ResponseEntity.ok().body("User with email " + mysqlUser.getUserEmail() + " has been successfully deleted.");
+            return ResponseEntity.ok().body("User with setbxId " + mysqlUser.getSetbxId() + " has been successfully deleted.");
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
         }
@@ -77,9 +77,9 @@ public class UserController {
             chatmessage.setUserName(mysqlUser.getUserName());
             chatmessage.setUserSex(mysqlUser.getUserSex());
             chatmessage.setUserBirth(mysqlUser.getUserBirth());
-            producerService.sendWithdrawMessage(chatmessage);
+            producerService.sendUpdateMessage(chatmessage);
 
-            return ResponseEntity.ok().body("User data has been successfully changed.");
+            return ResponseEntity.ok().body("User with setbxId " + mysqlUser.getSetbxId() +  " has been successfully changed.");
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
         }
