@@ -14,14 +14,14 @@ public class UserEntity {
     private ObjectId id;
 
     @Field("SETBX_ID")
-    private String username;
+    private String setbxId;
     @Field("USER_PWD")
     private String password;
     @Field("USER_ROLE")
     private String role;
 
     @Field("USER_NAME")
-    private String name;
+    private String username;
     @Field("USER_SEX")
     private String gender;
     @Field("USER_BIRTH")

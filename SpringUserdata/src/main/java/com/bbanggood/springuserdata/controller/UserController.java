@@ -15,7 +15,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<com.bbanggood.springuserdata.entity.UserEntity> getUserData(@RequestParam("username") String username) {
+    public ResponseEntity<com.bbanggood.springuserdata.entity.UserEntity> getUserData(@RequestParam("setbxId") String username) {
         Optional<com.bbanggood.springuserdata.entity.UserEntity> userEntityOptional = userService.getUserByUsername(username);
         if (userEntityOptional.isPresent()) {
             com.bbanggood.springuserdata.entity.UserEntity userEntity = userEntityOptional.get();

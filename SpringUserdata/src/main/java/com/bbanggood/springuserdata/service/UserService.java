@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<com.bbanggood.springuserdata.entity.UserEntity> getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<com.bbanggood.springuserdata.entity.UserEntity> getUserByUsername(String setbxId) {
+        return userRepository.findBySetbxId(setbxId);
     }
 }
