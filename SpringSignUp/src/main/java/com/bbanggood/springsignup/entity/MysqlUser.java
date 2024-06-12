@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -17,7 +19,7 @@ import java.time.LocalDate;
 public class MysqlUser {
     @Id
     @Column(name = "SETBX_ID", nullable = false)
-    private Integer setbxId;
+    private Integer userSetbxId;
 
     @Size(max = 255)
     @NotNull
@@ -72,10 +74,12 @@ public class MysqlUser {
     private String userRole;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
+    @CreationTimestamp
     @Column(name = "USER_CREATED_AT")
     private Instant userCreatedAt;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
+    @UpdateTimestamp
     @Column(name = "USER_UPDATED_AT")
     private Instant userUpdatedAt;
 
