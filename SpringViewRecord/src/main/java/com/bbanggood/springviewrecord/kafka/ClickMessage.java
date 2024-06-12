@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -12,9 +13,9 @@ import java.time.Instant;
 public class ClickMessage {
     private String setbxId;
 
-    private Integer vodId;
+    private String vodName;
 
     private String viewType;
 
-    private Instant clickTime;
+    private LocalDate clickTime;
 }

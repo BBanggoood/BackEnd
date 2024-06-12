@@ -29,12 +29,12 @@ public class ClickController {
 
         // 카프카 연동
         clickMessage.setSetbxId(click.getSetbxId().toString());
-        clickMessage.setVodId(click.getVodId());
+        clickMessage.setVodName(click.getVodName());
         clickMessage.setViewType(click.getViewType());
         clickMessage.setClickTime(click.getClickTime());
         producerService.sendClickMessage(clickMessage);
 
-        clickService.ClickPost(click.getSetbxId(), click.getVodId(), click.getViewType(), click.getClickTime());
+        clickService.ClickPost(click.getSetbxId(), click.getVodName(), click.getViewType(), click.getClickTime());
 
         return "클릭 입력 완료";
     }
