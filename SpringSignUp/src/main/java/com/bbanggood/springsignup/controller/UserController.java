@@ -35,7 +35,11 @@ public class UserController {
 
         userService.UserSignUp(userSignUpDTO.getUserSetbxId(), userSignUpDTO.getUserEmail(), userSignUpDTO.getUserPwd(),
                 userSignUpDTO.getUserName(), userSignUpDTO.getUserPhone(),
-                userSignUpDTO.getUserSex(), userSignUpDTO.getUserBirth());
+                userSignUpDTO.getUserSex(), userSignUpDTO.getUserBirth(),
+                userSignUpDTO.getUserAdult(), userSignUpDTO.getUserAdultKey(),
+                userSignUpDTO.getUserLikeGenre(), userSignUpDTO.getUserLikeVod(),
+                userSignUpDTO.getUserRole(), userSignUpDTO.getUserCreatedAt(),
+                userSignUpDTO.getUserUpdatedAt());
 
         // 카프카 연동
         chatmessage.setUserSetbxId(userSignUpDTO.getUserSetbxId().toString());
@@ -45,41 +49,61 @@ public class UserController {
         chatmessage.setUserPhone(userSignUpDTO.getUserPhone());
         chatmessage.setUserSex(userSignUpDTO.getUserSex());
         chatmessage.setUserBirth(userSignUpDTO.getUserBirth());
+
+        chatmessage.setUserAdult(userSignUpDTO.getUserAdult());
+        chatmessage.setUserAdultKey(userSignUpDTO.getUserAdultKey());
+        chatmessage.setUserLikeGenre(userSignUpDTO.getUserLikeGenre());
+        chatmessage.setUserLikeVod(userSignUpDTO.getUserLikeVod());
+        chatmessage.setUserRole(userSignUpDTO.getUserRole());
+        chatmessage.setUserCreatedAt(userSignUpDTO.getUserCreatedAt());
+        chatmessage.setUserUpdatedAt(userSignUpDTO.getUserUpdatedAt());
+
         producerService.sendSignUpMessage(chatmessage);
 
         return "회원 가입 성공!!";
     }
 
     @DeleteMapping("/withdraw")
-    public ResponseEntity<String> withdraw(@RequestBody MysqlUser mysqlUser, ChatMessage chatmessage) {
+    public ResponseEntity<String> withdraw(@RequestBody UserSignUpDTO userSignUpDTO, ChatMessage chatmessage) {
         try {
-            userService.UserWithdraw(mysqlUser.getSetbxId());
+            userService.UserWithdraw(userSignUpDTO.getUserSetbxId());
 
             // 카프카 연동
-            chatmessage.setUserSetbxId(mysqlUser.getSetbxId().toString());
+            chatmessage.setUserSetbxId(userSignUpDTO.getUserSetbxId().toString());
             producerService.sendWithdrawMessage(chatmessage);
 
-            return ResponseEntity.ok().body("User with setbxId " + mysqlUser.getSetbxId() + " has been successfully deleted.");
+            return ResponseEntity.ok().body("User with setbxId " + userSignUpDTO.getUserSetbxId() + " has been successfully deleted.");
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
         }
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<String> updateuserdata(@RequestBody MysqlUser mysqlUser, ChatMessage chatmessage) {
+    public ResponseEntity<String> updateuserdata(@RequestBody UserSignUpDTO userSignUpDTO, ChatMessage chatmessage) {
         try {
-            userService.UpdateUserData(mysqlUser.getSetbxId(), mysqlUser.getUserPwd(), mysqlUser.getConfirmUserPwd(),
-                    mysqlUser.getUserName(), mysqlUser.getUserSex(), mysqlUser.getUserBirth());
+            userService.UpdateUserData(userSignUpDTO.getUserSetbxId(), userSignUpDTO.getUserPwd(), userSignUpDTO.getConfirmUserPwd(),
+                    userSignUpDTO.getUserName(), userSignUpDTO.getUserSex(), userSignUpDTO.getUserBirth(),
+                    userSignUpDTO.getUserAdult(), userSignUpDTO.getUserAdultKey(), userSignUpDTO.getUserLikeGenre(),
+                    userSignUpDTO.getUserLikeVod(), userSignUpDTO.getUserRole(), userSignUpDTO.getUserCreatedAt(), userSignUpDTO.getUserUpdatedAt());
 
             // 카프카 연동
-            chatmessage.setUserSetbxId(mysqlUser.getSetbxId().toString());
-            chatmessage.setUserPwd(mysqlUser.getUserPwd());
-            chatmessage.setUserName(mysqlUser.getUserName());
-            chatmessage.setUserSex(mysqlUser.getUserSex());
-            chatmessage.setUserBirth(mysqlUser.getUserBirth());
+            chatmessage.setUserSetbxId(userSignUpDTO.getUserSetbxId().toString());
+            chatmessage.setUserPwd(userSignUpDTO.getUserPwd());
+            chatmessage.setUserName(userSignUpDTO.getUserName());
+            chatmessage.setUserSex(userSignUpDTO.getUserSex());
+            chatmessage.setUserBirth(userSignUpDTO.getUserBirth());
+
+            chatmessage.setUserAdult(userSignUpDTO.getUserAdult());
+            chatmessage.setUserAdultKey(userSignUpDTO.getUserAdultKey());
+            chatmessage.setUserLikeGenre(userSignUpDTO.getUserLikeGenre());
+            chatmessage.setUserLikeVod(userSignUpDTO.getUserLikeVod());
+            chatmessage.setUserRole(userSignUpDTO.getUserRole());
+            chatmessage.setUserCreatedAt(userSignUpDTO.getUserCreatedAt());
+            chatmessage.setUserUpdatedAt(userSignUpDTO.getUserUpdatedAt());
+
             producerService.sendUpdateMessage(chatmessage);
 
-            return ResponseEntity.ok().body("User with setbxId " + mysqlUser.getSetbxId() +  " has been successfully changed.");
+            return ResponseEntity.ok().body("User with setbxId " + userSignUpDTO.getUserSetbxId() +  " has been successfully changed.");
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body("Error: " + ex.getMessage());
         }
