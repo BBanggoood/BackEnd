@@ -45,18 +45,15 @@ public class UserSignUpDTO {
     @NotNull(message = "사용자 생년월일은 필수 항목입니다.")
     private LocalDate userBirth;
 
-    @ColumnDefault("0")
-    private Boolean userAdult;
+    private Boolean userAdult = false;
 
-    @ColumnDefault("0000")
-    private String userAdultKey;
+    private String userAdultKey = "0000";
 
     private String userLikeGenre;
 
     private String userLikeVod;
 
-    @ColumnDefault("ROLE_ADMIN")
-    private String userRole;
+    private String userRole = "ROLE_ADMIN";
 
     private Instant userCreatedAt;
 

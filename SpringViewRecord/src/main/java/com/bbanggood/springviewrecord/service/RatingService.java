@@ -12,11 +12,11 @@ import java.math.BigDecimal;
 public class RatingService {
     private final RatingRepository ratingRepository;
 
-    public void RatingPost(Integer setbxId, Integer vodId, BigDecimal rating) {
+    public void RatingPost(Integer setbxId, String vodName, BigDecimal rating) {
         Rating rate = new Rating();
 
         rate.setSetbxId(setbxId);
-        rate.setVodId(vodId);
+        rate.setVodName(vodName);
         rate.setRating(rating);
 
         ratingRepository.save(rate);

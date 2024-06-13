@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Service
 public class ClickService {
     private final ClickRepository clickRepository;
 
-    public void ClickPost(Integer setbxId, String vodName, String viewType, LocalDate clickTime) {
+    public void ClickPost(Integer setbxId, String vodName, String viewType, LocalDateTime clickTime) {
         Click click = new Click();
 
         click.setSetbxId(setbxId);

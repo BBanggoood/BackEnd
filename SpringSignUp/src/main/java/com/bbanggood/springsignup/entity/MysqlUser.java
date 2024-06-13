@@ -31,7 +31,7 @@ public class MysqlUser {
     @Column(name = "USER_PWD", nullable = false)
     private String userPwd;
 
-    private String confirmUserPwd;
+//    private String confirmUserPwd;
 
     @Size(max = 100)
     @NotNull

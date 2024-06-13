@@ -19,7 +19,7 @@ public class ChatMessage {
     private String userName;
     private String userPhone;
     private String userSex;
-    private LocalDate userBirth;
+    private String userBirth;
 
     private Boolean userAdult;
     private String userAdultKey;

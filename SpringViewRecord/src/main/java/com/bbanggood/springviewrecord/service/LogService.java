@@ -12,11 +12,11 @@ import java.time.Instant;
 public class LogService {
     private final LogRepository logRepository;
 
-    public void LogPost(Integer setbxId, Integer vodId, Integer watchTime, Instant startTime, Instant endTime) {
+    public void LogPost(Integer setbxId, String vodName, Integer watchTime, Instant startTime, Instant endTime) {
         Log log = new Log();
 
         log.setSetbxId(setbxId);
-        log.setVodId(vodId);
+        log.setVodName(vodName);
         log.setWatchTime(watchTime);
         log.setStartTime(startTime);
         log.setEndTime(endTime);
