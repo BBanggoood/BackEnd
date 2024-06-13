@@ -19,8 +19,8 @@ public class Rating {
     @Column(name = "SETBX_ID", nullable = false)
     private Integer setbxId;
 
-    @Column(name = "VOD_ID", nullable = false)
-    private Integer vodId;
+    @Column(name = "VOD_NAME", nullable = false)
+    private String vodName;
 
     @Column(name = "RATING", precision = 5, scale = 3)
     private BigDecimal rating;

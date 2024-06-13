@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class RatingDTO {
     private Integer setbxId;
 
-    private Integer vodId;
+    private String vodName;
 
     private BigDecimal rating;
 }

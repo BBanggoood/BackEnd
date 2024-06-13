@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bbanggood.springviewrecord.kafka.KafkaProducerService;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Data
 @RestController
@@ -28,13 +30,13 @@ public class LogController {
 
         // 카프카 연동
         logMessage.setSetbxId(log.getSetbxId().toString());
-        logMessage.setVodId(log.getVodId());
-        logMessage.setWatchTime(log.getWatchTime());
-        logMessage.setStartTime(log.getStartTime());
-        logMessage.setEndTime(log.getEndTime());
+        logMessage.setVodName(log.getVodName());
+        logMessage.setWatchTime(log.getWatchTime().toString());
+        logMessage.setStartTime(log.getStartTime().toString());
+        logMessage.setEndTime(LocalDateTime.now().toString());
         producerService.sendLogMessage(logMessage);
 
-        logService.LogPost(log.getSetbxId(), log.getVodId(), log.getWatchTime(), log.getStartTime(), log.getEndTime());
+        logService.LogPost(log.getSetbxId(), log.getVodName(), log.getWatchTime(), log.getStartTime(), log.getEndTime());
 
         return "로그 입력 완료";
     }
