@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends MongoRepository<com.bbanggood.springuserdata.entity.UserEntity, String> {
-    Optional<com.bbanggood.springuserdata.entity.UserEntity> findByUsername(String username);
+    Optional<com.bbanggood.springuserdata.entity.UserEntity> findBySetbxId(String setbxId);
 }

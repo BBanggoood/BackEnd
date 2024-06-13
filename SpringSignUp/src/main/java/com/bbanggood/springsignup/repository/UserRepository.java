@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<MysqlUser, String> {
-    MysqlUser findBySetbxId(Integer setbxId);
+    MysqlUser findByUserSetbxId(Integer userSetbxId);
 }

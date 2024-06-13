@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -15,11 +16,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void UserSignUp(Integer setbxId, String email, String password, String name,
-                       String phone, String sex, LocalDate birth) {
+    public void UserSignUp(Integer userSetbxId, String email, String password, String name,
+                       String phone, String sex, LocalDate birth, Boolean userAdult, String userAdultKey,
+                           String userLikeGenre, String userLikeVod, String userRole, Instant userCreatedAt, Instant userUpdatedAt) {
         MysqlUser user = new MysqlUser();
 
-        user.setSetbxId(setbxId);
+        user.setUserSetbxId(userSetbxId);
         user.setUserEmail(email);
         user.setUserPwd(passwordEncoder.encode(password));
         user.setUserName(name);
@@ -27,25 +29,34 @@ public class UserService {
         user.setUserSex(sex);
         user.setUserBirth(birth);
 
+        user.setUserAdult(userAdult);
+        user.setUserAdultKey(userAdultKey);
+        user.setUserLikeGenre(userLikeGenre);
+        user.setUserLikeVod(userLikeVod);
+        user.setUserRole(userRole);
+        user.setUserCreatedAt(userCreatedAt);
+        user.setUserUpdatedAt(userUpdatedAt);
+
         this.userRepository.save(user);
     }
 
-    public void UserWithdraw(Integer setbxId) {
-        Optional<MysqlUser> userOptional = Optional.ofNullable(userRepository.findBySetbxId(setbxId));
+    public void UserWithdraw(Integer userSetbxId) {
+        Optional<MysqlUser> userOptional = Optional.ofNullable(userRepository.findByUserSetbxId(userSetbxId));
 
         // 사용자가 존재하는지 확인
         if (userOptional.isPresent()) {
             MysqlUser user = userOptional.get();
             userRepository.delete(user);
         } else {
-            System.out.println("No user found with email: " + setbxId);
-            throw new RuntimeException("No user found with email: " + setbxId);
+            System.out.println("No user found with userSetbxId: " + userSetbxId);
+            throw new RuntimeException("No user found with userSetbxId: " + userSetbxId);
         }
     }
 
-    public void UpdateUserData(Integer setbxId, String newPassword, String confirmPassword,
-                                String name, LocalDate birth, String sex) {
-        Optional<MysqlUser> userOptional = Optional.ofNullable(userRepository.findBySetbxId(setbxId));
+    public void UpdateUserData(Integer userSetbxId, String newPassword, String confirmPassword,
+                               String name, String sex, LocalDate birth, Boolean userAdult, String userAdultKey,
+                               String userLikeGenre, String userLikeVod, String userRole, Instant userCreatedAt, Instant userUpdatedAt) {
+        Optional<MysqlUser> userOptional = Optional.ofNullable(userRepository.findByUserSetbxId(userSetbxId));
 
         // 사용자가 존재하는지 확인
         if (userOptional.isPresent()) {
@@ -54,8 +65,16 @@ public class UserService {
             user.setUserPwd(newPassword);
             user.setConfirmUserPwd(confirmPassword);
             user.setUserName(name);
-            user.setUserBirth(birth);
             user.setUserSex(sex);
+            user.setUserBirth(birth);
+
+            user.setUserAdult(userAdult);
+            user.setUserAdultKey(userAdultKey);
+            user.setUserLikeGenre(userLikeGenre);
+            user.setUserLikeVod(userLikeVod);
+            user.setUserRole(userRole);
+            user.setUserCreatedAt(userCreatedAt);
+            user.setUserUpdatedAt(userUpdatedAt);
 
             if (newPassword.equals(confirmPassword)) {
                 user.setUserPwd(passwordEncoder.encode(newPassword));
@@ -65,7 +84,7 @@ public class UserService {
                 throw new RuntimeException("Passwords do not match.");
             }
         } else {
-            throw new RuntimeException("No user found with email: " + setbxId);
+            throw new RuntimeException("No user found with userSetbxId: " + userSetbxId);
         }
     }
 }
