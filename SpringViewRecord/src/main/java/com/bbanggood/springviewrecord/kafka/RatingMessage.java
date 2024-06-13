@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class RatingMessage {
     private String setbxId;
 
-    private Integer vodId;
+    private String vodName;
 
-    private BigDecimal rating;
+    private String rating;
 }

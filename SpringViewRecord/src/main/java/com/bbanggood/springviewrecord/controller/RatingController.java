@@ -28,11 +28,11 @@ public class RatingController {
 
         // 카프카 연동
         ratingMessage.setSetbxId(rating.getSetbxId().toString());
-        ratingMessage.setVodId(rating.getVodId());
-        ratingMessage.setRating(rating.getRating());
+        ratingMessage.setVodName(rating.getVodName());
+        ratingMessage.setRating(rating.getRating().toString());
         producerService.sendRatingMessage(ratingMessage);
         
-        ratingService.RatingPost(rating.getSetbxId(), rating.getVodId(), rating.getRating());
+        ratingService.RatingPost(rating.getSetbxId(), rating.getVodName(), rating.getRating());
         
         return "평점 입력 완료";
     }

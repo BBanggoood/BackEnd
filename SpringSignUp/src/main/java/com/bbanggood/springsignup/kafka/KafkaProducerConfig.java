@@ -28,7 +28,15 @@ public class KafkaProducerConfig {
         return new DefaultKafkaProducerFactory<>(config);
     }
     @Bean
-    public KafkaTemplate<String, ChatMessage> kafkaTemplate() {
+    public KafkaTemplate<String, ChatMessage> kafkaSignUpTemplate() {
+        return new KafkaTemplate<>(producerFactory());
+    }
+    @Bean
+    public KafkaTemplate<String, ChatMessage> kafkaUpdateTemplate() {
+        return new KafkaTemplate<>(producerFactory());
+    }
+    @Bean
+    public KafkaTemplate<String, ChatMessage> kafkaWithdrawTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

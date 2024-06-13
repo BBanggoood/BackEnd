@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Setter
@@ -18,5 +19,13 @@ public class ChatMessage {
     private String userName;
     private String userPhone;
     private String userSex;
-    private LocalDate userBirth;
+    private String userBirth;
+
+    private Boolean userAdult;
+    private String userAdultKey;
+    private String userLikeGenre;
+    private String userLikeVod;
+    private String userRole;
+    private Instant userCreatedAt;
+    private Instant userUpdatedAt;
 }

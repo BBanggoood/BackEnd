@@ -6,17 +6,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Service
 public class ClickService {
     private final ClickRepository clickRepository;
 
-    public void ClickPost(Integer setbxId, Integer vodId, String viewType, Instant clickTime) {
+    public void ClickPost(Integer setbxId, String vodName, String viewType, LocalDateTime clickTime) {
         Click click = new Click();
 
         click.setSetbxId(setbxId);
-        click.setVodId(vodId);
+        click.setVodName(vodName);
         click.setViewType(viewType);
         click.setClickTime(clickTime);
 

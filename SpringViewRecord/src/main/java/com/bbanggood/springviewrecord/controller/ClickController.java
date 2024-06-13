@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bbanggood.springviewrecord.kafka.KafkaProducerService;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Slf4j
 @Data
 @RestController
@@ -22,19 +26,24 @@ public class ClickController {
     private final KafkaProducerService producerService;
 
     @PostMapping("/click")
-    public String AddClickRecord(@RequestBody ClickDTO click, BindingResult bindingResult, ClickMessage clickMessage) {
+    public String AddClickRecord(@RequestBody ClickDTO click, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return bindingResult.getFieldError().getDefaultMessage();
         }
 
         // 카프카 연동
+        ClickMessage clickMessage = new ClickMessage();
         clickMessage.setSetbxId(click.getSetbxId().toString());
-        clickMessage.setVodId(click.getVodId());
+        clickMessage.setVodName(click.getVodName());
         clickMessage.setViewType(click.getViewType());
-        clickMessage.setClickTime(click.getClickTime());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+//        clickMessage.setClickTime(LocalDateTime.now().toString());
+        clickMessage.setClickTime(LocalDateTime.now().format(formatter));
+
         producerService.sendClickMessage(clickMessage);
 
-        clickService.ClickPost(click.getSetbxId(), click.getVodId(), click.getViewType(), click.getClickTime());
+        clickService.ClickPost(click.getSetbxId(), click.getVodName(), click.getViewType(), LocalDateTime.parse(clickMessage.getClickTime(), formatter));
 
         return "클릭 입력 완료";
     }
