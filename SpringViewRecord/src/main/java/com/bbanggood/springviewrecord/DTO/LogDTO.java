@@ -11,7 +11,7 @@ import java.time.Instant;
 public class LogDTO {
     private Integer setbxId;
 
-    private Integer vodId;
+    private String vodName;
 
     private Integer watchTime;
 

@@ -4,15 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class ClickDTO {
     private Integer setbxId;
 
-    private Integer vodId;
+    private String vodName;
 
     private String viewType;
 
-    private Instant clickTime;
+    private LocalDateTime clickTime;
 }

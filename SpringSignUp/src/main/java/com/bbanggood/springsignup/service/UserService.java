@@ -1,6 +1,8 @@
 package com.bbanggood.springsignup.service;
 
 import com.bbanggood.springsignup.entity.MysqlUser;
+import com.bbanggood.springsignup.kafka.ChatMessage;
+import com.bbanggood.springsignup.kafka.KafkaProducerService;
 import com.bbanggood.springsignup.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,11 +12,14 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import com.bbanggood.springsignup.kafka.ChatMessage;
+
 @RequiredArgsConstructor
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final KafkaProducerService producerService;
 
     public void UserSignUp(Integer userSetbxId, String email, String password, String name,
                        String phone, String sex, LocalDate birth, Boolean userAdult, String userAdultKey,
@@ -53,9 +58,10 @@ public class UserService {
         }
     }
 
-    public void UpdateUserData(Integer userSetbxId, String newPassword, String confirmPassword,
+    public void UpdateUserData(Integer userSetbxId, String newPassword, /*String confirmPassword,*/
                                String name, String sex, LocalDate birth, Boolean userAdult, String userAdultKey,
-                               String userLikeGenre, String userLikeVod, String userRole, Instant userCreatedAt, Instant userUpdatedAt) {
+                               String userLikeGenre, String userLikeVod, String userRole, Instant userCreatedAt, Instant userUpdatedAt,
+                               ChatMessage chatMessage) {
         Optional<MysqlUser> userOptional = Optional.ofNullable(userRepository.findByUserSetbxId(userSetbxId));
 
         // 사용자가 존재하는지 확인
@@ -63,7 +69,7 @@ public class UserService {
             MysqlUser user = userOptional.get();
 
             user.setUserPwd(newPassword);
-            user.setConfirmUserPwd(confirmPassword);
+//            user.setConfirmUserPwd(confirmPassword);
             user.setUserName(name);
             user.setUserSex(sex);
             user.setUserBirth(birth);
@@ -76,13 +82,31 @@ public class UserService {
             user.setUserCreatedAt(userCreatedAt);
             user.setUserUpdatedAt(userUpdatedAt);
 
-            if (newPassword.equals(confirmPassword)) {
-                user.setUserPwd(passwordEncoder.encode(newPassword));
-                this.userRepository.save(user);
-            }
-            else {
-                throw new RuntimeException("Passwords do not match.");
-            }
+            this.userRepository.save(user);
+
+//            if (newPassword.equals(confirmPassword)) {
+//                user.setUserPwd(passwordEncoder.encode(newPassword));
+//            }
+//            else {
+//                throw new RuntimeException("Passwords do not match.");
+//            }
+
+            // kafka
+            chatMessage.setUserSetbxId(user.getUserSetbxId().toString());
+            chatMessage.setUserEmail(user.getUserEmail());
+            chatMessage.setUserPwd(passwordEncoder.encode(user.getUserPwd()));
+            chatMessage.setUserName(user.getUserName());
+            chatMessage.setUserPhone(user.getUserPhone());
+            chatMessage.setUserSex(user.getUserSex());
+            chatMessage.setUserBirth(user.getUserBirth().toString());
+
+            chatMessage.setUserAdult(user.getUserAdult());
+            chatMessage.setUserAdultKey((user.getUserAdultKey()));
+            chatMessage.setUserLikeGenre(user.getUserLikeGenre());
+            chatMessage.setUserLikeVod(user.getUserLikeVod());
+            chatMessage.setUserRole(user.getUserRole());
+
+            producerService.sendUpdateMessage(chatMessage);
         } else {
             throw new RuntimeException("No user found with userSetbxId: " + userSetbxId);
         }

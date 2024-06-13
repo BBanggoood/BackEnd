@@ -48,15 +48,13 @@ public class UserController {
         chatmessage.setUserName(userSignUpDTO.getUserName());
         chatmessage.setUserPhone(userSignUpDTO.getUserPhone());
         chatmessage.setUserSex(userSignUpDTO.getUserSex());
-        chatmessage.setUserBirth(userSignUpDTO.getUserBirth());
+        chatmessage.setUserBirth(userSignUpDTO.getUserBirth().toString());
 
         chatmessage.setUserAdult(userSignUpDTO.getUserAdult());
         chatmessage.setUserAdultKey(userSignUpDTO.getUserAdultKey());
         chatmessage.setUserLikeGenre(userSignUpDTO.getUserLikeGenre());
         chatmessage.setUserLikeVod(userSignUpDTO.getUserLikeVod());
         chatmessage.setUserRole(userSignUpDTO.getUserRole());
-        chatmessage.setUserCreatedAt(userSignUpDTO.getUserCreatedAt());
-        chatmessage.setUserUpdatedAt(userSignUpDTO.getUserUpdatedAt());
 
         producerService.sendSignUpMessage(chatmessage);
 
@@ -81,27 +79,30 @@ public class UserController {
     @PatchMapping("/update")
     public ResponseEntity<String> updateuserdata(@RequestBody UserSignUpDTO userSignUpDTO, ChatMessage chatmessage) {
         try {
-            userService.UpdateUserData(userSignUpDTO.getUserSetbxId(), userSignUpDTO.getUserPwd(), userSignUpDTO.getConfirmUserPwd(),
+            if (!userSignUpDTO.getUserPwd().equals(userSignUpDTO.getConfirmUserPwd())) {
+                return ResponseEntity.badRequest().body("2개의 비밀번호가 일치하지 않습니다.");
+            }
+
+            userService.UpdateUserData(userSignUpDTO.getUserSetbxId(), userSignUpDTO.getUserPwd(), /*userSignUpDTO.getConfirmUserPwd(),*/
                     userSignUpDTO.getUserName(), userSignUpDTO.getUserSex(), userSignUpDTO.getUserBirth(),
                     userSignUpDTO.getUserAdult(), userSignUpDTO.getUserAdultKey(), userSignUpDTO.getUserLikeGenre(),
-                    userSignUpDTO.getUserLikeVod(), userSignUpDTO.getUserRole(), userSignUpDTO.getUserCreatedAt(), userSignUpDTO.getUserUpdatedAt());
+                    userSignUpDTO.getUserLikeVod(), userSignUpDTO.getUserRole(), userSignUpDTO.getUserCreatedAt(), userSignUpDTO.getUserUpdatedAt(),
+                    chatmessage);
 
             // 카프카 연동
-            chatmessage.setUserSetbxId(userSignUpDTO.getUserSetbxId().toString());
-            chatmessage.setUserPwd(userSignUpDTO.getUserPwd());
-            chatmessage.setUserName(userSignUpDTO.getUserName());
-            chatmessage.setUserSex(userSignUpDTO.getUserSex());
-            chatmessage.setUserBirth(userSignUpDTO.getUserBirth());
-
-            chatmessage.setUserAdult(userSignUpDTO.getUserAdult());
-            chatmessage.setUserAdultKey(userSignUpDTO.getUserAdultKey());
-            chatmessage.setUserLikeGenre(userSignUpDTO.getUserLikeGenre());
-            chatmessage.setUserLikeVod(userSignUpDTO.getUserLikeVod());
-            chatmessage.setUserRole(userSignUpDTO.getUserRole());
-            chatmessage.setUserCreatedAt(userSignUpDTO.getUserCreatedAt());
-            chatmessage.setUserUpdatedAt(userSignUpDTO.getUserUpdatedAt());
-
-            producerService.sendUpdateMessage(chatmessage);
+//            chatmessage.setUserSetbxId(userSignUpDTO.getUserSetbxId().toString());
+//            chatmessage.setUserPwd(userSignUpDTO.getUserPwd());
+//            chatmessage.setUserName(userSignUpDTO.getUserName());
+//            chatmessage.setUserSex(userSignUpDTO.getUserSex());
+//            chatmessage.setUserBirth(userSignUpDTO.getUserBirth().toString());
+//
+//            chatmessage.setUserAdult(userSignUpDTO.getUserAdult());
+//            chatmessage.setUserAdultKey(userSignUpDTO.getUserAdultKey());
+//            chatmessage.setUserLikeGenre(userSignUpDTO.getUserLikeGenre());
+//            chatmessage.setUserLikeVod(userSignUpDTO.getUserLikeVod());
+//            chatmessage.setUserRole(userSignUpDTO.getUserRole());
+//
+//            producerService.sendUpdateMessage(chatmessage);
 
             return ResponseEntity.ok().body("User with setbxId " + userSignUpDTO.getUserSetbxId() +  " has been successfully changed.");
         } catch (RuntimeException ex) {

@@ -12,11 +12,11 @@ import java.time.Instant;
 public class LogMessage {
     private String setbxId;
 
-    private Integer vodId;
+    private String vodName;
 
-    private Integer watchTime;
+    private String watchTime;
 
-    private Instant startTime;
+    private String startTime;
 
-    private Instant endTime;
+    private String endTime;
 }
