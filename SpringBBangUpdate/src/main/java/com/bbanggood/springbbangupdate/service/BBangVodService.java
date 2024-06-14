@@ -15,7 +15,7 @@ public class BBangVodService {
     private final BBangVodRepository bbangVodRepository;
 
     @Transactional
-    public BBangVod AddVod(Integer setbxId, Integer vodId, String vodPoster) {
+    public BBangVod AddVod(Integer setbxId, String vodId, String vodPoster) {
         Optional<BBangVod> vodOptional = bbangVodRepository.findBySetbxIdAndVodId(setbxId, vodId);
 
         if (vodOptional.isEmpty()) {
@@ -32,7 +32,7 @@ public class BBangVodService {
     }
 
     @Transactional
-    public void DeleteVod(Integer setbxId, Integer vodId) {
+    public void DeleteVod(Integer setbxId, String vodId) {
         Optional<BBangVod> vodOptional = bbangVodRepository.findBySetbxIdAndVodId(setbxId, vodId);
 
         // vod가 존재하는지 확인

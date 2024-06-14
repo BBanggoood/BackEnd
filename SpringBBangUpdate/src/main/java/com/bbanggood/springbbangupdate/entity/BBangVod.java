@@ -18,7 +18,7 @@ public class BBangVod {
     private Integer setbxId;
 
     @Column(name = "VOD_ID")
-    private Integer vodId;
+    private String vodId;
 
     @Column(name = "VOD_POSTER")
     private String vodPoster;

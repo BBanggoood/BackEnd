@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface BBangVodRepository extends JpaRepository<BBangVod, Integer> {
-    Optional<BBangVod> findBySetbxIdAndVodId(Integer setbxId, Integer vodId);
+    Optional<BBangVod> findBySetbxIdAndVodId(Integer setbxId, String vodId);
 }
