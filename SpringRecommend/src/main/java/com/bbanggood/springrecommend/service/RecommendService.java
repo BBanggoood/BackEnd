@@ -5,6 +5,7 @@ import com.bbanggood.springrecommend.entity.VodEntity;
 import com.bbanggood.springrecommend.repository.RecommendRepository;
 import com.bbanggood.springrecommend.repository.VodRepository;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class RecommendService {
             for (int i = startIndex; i < Math.min(vodNames.length, endIndex); i++) {
                 VodEntity vodEntity = vodRepository.findByVodName(vodNames[i].trim());
                 if (vodEntity != null) {
-                    VodResponse vodResponse = new VodResponse(vodEntity.getId(), vodEntity.getVodName(), vodEntity.getVodPoster());
+                    VodResponse vodResponse = new VodResponse(vodEntity.getId().toString(), vodEntity.getVodName(), vodEntity.getVodPoster());
                     vodResponses.add(vodResponse);
                 }
             }
@@ -43,11 +44,11 @@ public class RecommendService {
 
     @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     public static class VodResponse {
-        private ObjectId id;
+        private String id;
         private String vodName;
         private String vodPoster;
 
-        public VodResponse(ObjectId id, String vodName, String vodPoster) {
+        public VodResponse(String id, String vodName, String vodPoster) {
             this.id = id;
             this.vodName = vodName;
             this.vodPoster = vodPoster;
