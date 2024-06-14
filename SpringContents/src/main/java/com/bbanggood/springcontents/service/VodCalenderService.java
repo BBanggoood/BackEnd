@@ -18,7 +18,8 @@ public class VodCalenderService {
     public List<VodCalenderDTO> getVodsByDateRange(Date start, Date end) {
         List<VodEntity> vods = vodRepository.findByVodOpenAtBetween(start, end);
         return vods.stream()
-                .map(vod -> new VodCalenderDTO(vod.getVodName(), vod.getVodOpenAt()))
+                .map(vod -> new VodCalenderDTO(vod.getVodName(), vod.getVodOpenAt(), vod.getVodDirector(),
+                        vod.getVodCast(), vod.getVodPoster()))
                 .collect(Collectors.toList());
     }
 }

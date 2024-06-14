@@ -10,4 +10,7 @@ import java.util.Date;
 public class VodCalenderDTO {
     private String vodName;
     private Date vodOpenAt;
+    private String vodDirector;
+    private String vodCast;
+    private String vodPoster;
 }
