@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,4 +24,6 @@ public interface VodRepository extends MongoRepository<VodEntity, String> {
 
     @Query("{'vodCast': {$regex: ?0, $options: 'i'}}") // i는 대소문자 구분 없이 검색
     List<VodEntity> findByVodCastLike(String vodCast);
+
+    List<VodEntity> findByVodOpenAtBetween(Date start, Date end);
 }

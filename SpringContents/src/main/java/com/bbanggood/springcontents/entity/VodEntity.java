@@ -54,6 +54,7 @@ public class VodEntity {
     private String VOD_INITIAL;
     private String VOD_KEYWORD;
     private String VOD_TIME;
-    private Date VOD_OPEN_AT;
+    @Field("VOD_OPEN_AT") // 오픈 일자
+    private Date vodOpenAt;
     private Date VOD_UPDATED_AT;
 }
