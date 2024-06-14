@@ -14,7 +14,7 @@ public class BBangCastService {
     private final BBangCastRepository bbangCastRepository;
 
     @Transactional(readOnly = true)
-    public List<BBangCast> BBangCastList(Integer setbxId) {
+    public List<BBangCast> BBangCastList(String setbxId) {
         return bbangCastRepository.findAllBySetbxId(setbxId);
     }
 }

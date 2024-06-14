@@ -16,7 +16,7 @@ public class BBangVod {
     private Integer setbxId;
 
     @Field("VOD_ID")
-    private Integer vodId;
+    private String vodId;
 
     @Field("VOD_POSTER")
     private String vodPoster;

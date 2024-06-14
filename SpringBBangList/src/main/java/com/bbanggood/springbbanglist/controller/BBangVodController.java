@@ -17,7 +17,7 @@ public class BBangVodController {
     private final BBangVodService bbangVodService;
 
     @GetMapping("/vod/{setbxId}")
-    public List<BBangVod> GetBBangVodList(@PathVariable Integer setbxId) {
+    public List<BBangVod> GetBBangVodList(@PathVariable String setbxId) {
         return bbangVodService.BBangVodList(setbxId);
     }
 }
