@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BBangVodMessage {
     private String setbxId;
-    private Integer vodId;
+    private String vodId;
     private String vodPoster;
 }

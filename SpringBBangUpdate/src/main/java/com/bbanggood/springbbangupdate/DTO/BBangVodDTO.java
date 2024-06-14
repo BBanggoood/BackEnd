@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class BBangVodDTO {
     private Integer setbxId;
-    private Integer vodId;
+    private String vodId;
     private String vodPoster;
 }
