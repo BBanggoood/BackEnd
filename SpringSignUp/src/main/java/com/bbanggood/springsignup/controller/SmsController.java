@@ -16,8 +16,8 @@ public class SmsController {
         this.smsService = smsService;
     }
 
-    @PostMapping("/send")
-    public ResponseEntity<String> sendSms(@RequestParam String phoneNumber) {
+    @PostMapping("/send/{phoneNumber}")
+    public ResponseEntity<String> sendSms(@PathVariable String phoneNumber) {
         smsService.sendVerificationCode(phoneNumber);
         return ResponseEntity.ok("SMS sent successfully");
     }
