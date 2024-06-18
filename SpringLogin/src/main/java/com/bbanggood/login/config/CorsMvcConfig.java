@@ -12,7 +12,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
         corsRegistry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("Content-Type", "Authorization", "X-Requested-With")
+                .allowedHeaders("Content-Type", "Authorization", "X-Requested-With", "x-amzn-Remapped-Authorization")
                 .exposedHeaders("Authorization", "x-amzn-Remapped-Authorization");  // 여기서 커스텀 헤더를 노출
     }
 }
