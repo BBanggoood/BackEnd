@@ -64,6 +64,7 @@ public class SecurityConfig {
                         configuration.setMaxAge(3600L);
 
                         configuration.setExposedHeaders(Collections.singletonList("Authorization"));
+                        configuration.setExposedHeaders(Collections.singletonList("x-amzn-Remapped-Authorization"));
 
                         return configuration;
                     }
