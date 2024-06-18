@@ -9,11 +9,10 @@ public class CorsMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
-
         corsRegistry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("Content-Type", "Authorization", "X-Requested-With")
-                .exposedHeaders("x-amzn-Remapped-Authorization");  // 여기서 커스텀 헤더를 노출
+                .exposedHeaders("Authorization", "x-amzn-Remapped-Authorization");  // 여기서 커스텀 헤더를 노출
     }
 }
