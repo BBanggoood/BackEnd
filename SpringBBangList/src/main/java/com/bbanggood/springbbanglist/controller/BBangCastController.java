@@ -17,7 +17,7 @@ public class BBangCastController {
     private final BBangCastService bbangCastService;
 
     @GetMapping("/cast/{setbxId}")
-    public List<BBangCast> GetBBangCastList(@PathVariable Integer setbxId) {
+    public List<BBangCast> GetBBangCastList(@PathVariable String setbxId) {
         return bbangCastService.BBangCastList(setbxId);
     }
 }

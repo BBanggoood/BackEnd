@@ -17,7 +17,7 @@ public class BBangDirectorController {
     private final BBangDirectorService bbangDirectorService;
 
     @GetMapping("/director/{setbxId}")
-    public List<BBangDirector> GetBBangDirectorList(@PathVariable Integer setbxId) {
+    public List<BBangDirector> GetBBangDirectorList(@PathVariable String setbxId) {
         return bbangDirectorService.BBangDirectorList(setbxId);
     }
 }

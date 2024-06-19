@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface BBangDirectorRepository extends MongoRepository<BBangDirector, Integer> {
-    List<BBangDirector> findAllBySetbxId(Integer setbxId);
+public interface BBangDirectorRepository extends MongoRepository<BBangDirector, String> {
+    List<BBangDirector> findAllBySetbxId(String setbxId);
 }

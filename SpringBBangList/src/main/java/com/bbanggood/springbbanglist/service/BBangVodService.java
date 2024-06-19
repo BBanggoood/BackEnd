@@ -14,7 +14,7 @@ public class BBangVodService {
     private final BBangVodRepository bbangVodRepository;
 
     @Transactional(readOnly = true)
-    public List<BBangVod> BBangVodList(Integer setbxId) {
+    public List<BBangVod> BBangVodList(String setbxId) {
         return bbangVodRepository.findAllBySetbxId(setbxId);
     }
 }
