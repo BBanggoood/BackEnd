@@ -6,6 +6,7 @@ import com.bbanggood.springcontents.service.DirDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,8 +25,10 @@ public class DirDetailController {
     }
 
     @GetMapping("/detail/director/{vodDirector}")
-    public List<DirDetailDto> getVodDetailsByDirector(@PathVariable String vodDirector) {
-        List<VodEntity> vodEntities = dirDetailService.getVodByVodDirector(vodDirector);
+    public List<DirDetailDto> getVodDetailsByDirector(
+            @PathVariable String vodDirector,
+            @RequestParam(defaultValue = "vodOpenAt") String sortBy) {
+        List<VodEntity> vodEntities = dirDetailService.getVodByVodDirector(vodDirector, sortBy);
         return vodEntities.stream()
                 .map(vod -> new DirDetailDto(
                         vod.getVodDirector(),
