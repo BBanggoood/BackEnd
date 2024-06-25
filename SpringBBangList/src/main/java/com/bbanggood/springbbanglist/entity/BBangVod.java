@@ -13,7 +13,7 @@ public class BBangVod {
     private ObjectId bbangVodId;
 
     @Field("SETBX_ID")
-    private Integer setbxId;
+    private String setbxId;
 
     @Field("VOD_ID")
     private String vodId;

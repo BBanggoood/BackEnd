@@ -5,6 +5,7 @@ import com.bbanggood.springcontents.projection.VodIdProjection;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Sort;
 
 import java.util.Date;
 import java.util.List;
@@ -20,10 +21,10 @@ public interface VodRepository extends MongoRepository<VodEntity, String> {
     Optional<VodEntity> findByVodId(String vodId);
 
     @Query("{'vodDirector': {$regex: ?0, $options: 'i'}}") // i는 대소문자 구분 없이 검색
-    List<VodEntity> findByVodDirectorLike(String vodDirector);
+    List<VodEntity> findByVodDirectorLike(String vodDirector, Sort sort);
 
     @Query("{'vodCast': {$regex: ?0, $options: 'i'}}") // i는 대소문자 구분 없이 검색
-    List<VodEntity> findByVodCastLike(String vodCast);
+    List<VodEntity> findByVodCastLike(String vodCast, Sort sort);
 
     List<VodEntity> findByVodOpenAtBetween(Date start, Date end);
 }

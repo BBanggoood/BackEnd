@@ -13,7 +13,7 @@ public class BBangDirector {
     private ObjectId bbangDirectorId;
 
     @Field("SETBX_ID")
-    private Integer setbxId;
+    private String setbxId;
 
     @Field("VOD_DIRECTOR")
     private String vodDirector;

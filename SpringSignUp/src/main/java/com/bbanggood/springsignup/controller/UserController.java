@@ -8,6 +8,7 @@ import com.bbanggood.springsignup.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
     private final UserService userService;
     private final KafkaProducerService producerService;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
     public String signup(@Valid @RequestBody UserSignUpDTO userSignUpDTO, BindingResult bindingResult, ChatMessage chatmessage) {
@@ -44,7 +46,7 @@ public class UserController {
         // 카프카 연동
         chatmessage.setUserSetbxId(userSignUpDTO.getUserSetbxId().toString());
         chatmessage.setUserEmail(userSignUpDTO.getUserEmail());
-        chatmessage.setUserPwd(userSignUpDTO.getUserPwd());
+        chatmessage.setUserPwd(passwordEncoder.encode(userSignUpDTO.getUserPwd()));
         chatmessage.setUserName(userSignUpDTO.getUserName());
         chatmessage.setUserPhone(userSignUpDTO.getUserPhone());
         chatmessage.setUserSex(userSignUpDTO.getUserSex());

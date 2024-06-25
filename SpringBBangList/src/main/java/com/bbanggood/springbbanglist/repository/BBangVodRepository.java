@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface BBangVodRepository extends MongoRepository<BBangVod, Integer> {
+public interface BBangVodRepository extends MongoRepository<BBangVod, String> {
     List<BBangVod> findAllBySetbxId(String setbxId);
 }
